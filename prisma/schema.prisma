@@ -12,13 +12,13 @@ datasource db {
 
 
 model Student {
-  matricula Int @id
-  cpf Int
+  matricula String @id
+  cpf String @unique
   nome String
   dataNascimento DateTime
   endereco_eth String @unique
 
-  email String
+  email String @unique
   hashSenha String      
 
   certificados Certificado[]
@@ -41,7 +41,7 @@ model Certificado {
   createdAt DateTime @default(now())
   
   student Student @relation(fields: [studentMatricula], references: [matricula])
-  studentMatricula Int
+  studentMatricula String
 
   curso Curso @relation(fields: [idCurso], references: [id])
   idCurso Int
