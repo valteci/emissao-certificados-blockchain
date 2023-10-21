@@ -3,11 +3,18 @@ import { PrismaService } from "src/prisma/prisma.service";
 import { AuthDtoSingup, AuthDtoSignin } from "./dto";
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { JwtService } from "@nestjs/jwt";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable({})
 export class AuthService {
 
-    constructor(private prisma: PrismaService) {
+    constructor(
+        private prisma: PrismaService, 
+        private jwt: JwtService,
+        private config: ConfigService,
+    ) {
+
         
     }
     
@@ -34,10 +41,8 @@ export class AuthService {
             throw new ForbiddenException(
                 'Senha incorreta!'
             );
-
-        delete user.hashSenha;
-        return user;
         
+        return this.signToken(user.matricula);
     }
 
     async signup(dto: AuthDtoSingup) {
@@ -56,9 +61,8 @@ export class AuthService {
                     endereco_eth: dto.endereco_eth,
                 },
             })
-
-            delete user.hashSenha;
-            return user;
+            
+            return this.signToken(user.matricula);
             
         } catch(error) {
             if (error instanceof PrismaClientKnownRequestError)
@@ -69,10 +73,28 @@ export class AuthService {
 
             throw error;
         }
+    }
 
-        
+    async signToken(
+        matricula: string,        
+    ): Promise<{access_token: string}> {
 
-        
+        const payload = {
+            sub: matricula,
+        }
+
+        const token = await this.jwt.signAsync(
+            payload,
+            {
+                expiresIn: '15m',
+                secret: this.config.get('JWT_SECRET'),
+            },
+        );
+
+        return {
+            access_token: token
+        }
+
     }
 
 
