@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
-import { AuthDto } from "./dto";
+import { AuthDtoSingup, AuthDtoSignin } from "./dto";
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
@@ -11,12 +11,36 @@ export class AuthService {
         
     }
     
-    signin() {        
+    async signin(dto: AuthDtoSignin) {
         
-        return "i'm sign in!";
+        const user = 
+            await this.prisma.student.findUnique({
+                where: {
+                    matricula: dto.matricula,
+                },
+            });
+        
+        if (!user) 
+            throw new ForbiddenException(
+                'Estudante nao cadastrado'
+            );
+
+        const pwMatches = 
+            await argon.verify(
+                user.hashSenha, dto.password
+            );
+
+        if (!pwMatches)
+            throw new ForbiddenException(
+                'Senha incorreta!'
+            );
+
+        delete user.hashSenha;
+        return user;
+        
     }
 
-    async signup(dto: AuthDto) {
+    async signup(dto: AuthDtoSingup) {
         const hash = await argon.hash(dto.password);
         
         try {

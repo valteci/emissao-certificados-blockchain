@@ -7,7 +7,18 @@ import {
 } from "class-validator";
 
 
-export class AuthDto {
+export class AuthDtoSignin {
+    @IsString()
+    @IsNotEmpty()
+    matricula: string;
+
+    @IsString()
+    @IsNotEmpty()
+    password: string;
+}
+
+
+export class AuthDtoSingup {
     
     @IsString()
     @IsNotEmpty()
