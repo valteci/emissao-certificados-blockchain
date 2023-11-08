@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Gerador de Chaves</title>
+        <link rel="stylesheet" href="gerarChavesEth.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Gerador de chaves - Ethereum</h1>
+            <div class="containerComponent">
+                <label for="chavePrivada">Chave Privada:</label>
+                <input
+                    type="text"
+                    id="chavePrivada"
+                    name="chavePrivada"
+                >
+            </div>
+            
+            <div class="containerComponent">
+                <label for="endereco">Chave Pública:</label>
+                <input
+                    type="text"
+                    id="endereco"
+                    name="endereco"
+                >
+            </div>
+            
+            <div class="containerComponent">
+                <button id="btnGerar">Gerar</button>
+            </div>
+
+            <script src="../../dist/bundle.js"></script>            
+
+        </div>
+
+        <div class="aviso">
+            <h2>MUITO IMPORTANTE!</h2>
+
+            <ul>
+                <li>
+                    Nunca compartilhe sua chave privada com ninguém, nem mesmo se
+                    essa pessoa falar que é de alguma equipe de suporte, ou que 
+                    quer apenas te ajudar.                                
+                </li>
+                <li>
+                    Anote sua chave privada em pedaço de papel e armazene em algum 
+                    local seguro. Não é aconselhado guardá-la em midias digitais 
+                    como seu celular, notebook ou pendrive, principalmente se não 
+                    estiver criptografada.
+                </li>
+                <li>
+                    Não digite sua chave privada em qualquer tipo de site. Apenas 
+                    digite sua chave privada em aplicativos já conhecidos pela 
+                    comunidade tal como
+                    <a
+                        href="https://metamask.io"
+                        target="_blank"
+                    >
+                        metamask
+                    </a>
+                    para poder acessar a sua conta Ethereum. Você pode conchecer 
+                    mais carteiras confiáveis para acessar sua conta Ethereum 
+                    através do site oficial da ethereum:
+                    <a 
+                        href="https://ethereum.org/pt-br/wallets/find-wallet/"
+                        target="_blank"
+                    >                    
+                        carteiras confiáveis
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>
+
