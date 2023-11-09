@@ -1,3 +1,26 @@
+const cursos = {
+
+}
+
+function carregarCursos() {
+    cursos['Programação Python'] = 1;
+    cursos['Inteligência Artificial'] = 2;
+    cursos['Desenvolvimento Web'] = 3;
+    cursos['Arduino'] = 4;
+
+
+    
+
+    const select = document.getElementById('comboboxCurso');
+
+    Object.keys(cursos).forEach(opcao => {
+        const option = document.createElement('option');
+        option.value = opcao;
+        option.textContent = opcao;
+        select.appendChild(option);
+    })
+}
+
 
 function enviarFormulario(event) {
     
@@ -9,8 +32,11 @@ function enviarFormulario(event) {
     const data = document.getElementById('dataNascimento').value;
     const senha = document.getElementById('senha').value;
     const enderecoEth = document.getElementById('enderecoEth').value;
-
+    const curso = document.getElementById('comboboxCurso').value;        
+    
     const dataCompleta = `${data}T00:00:00Z`;
+    const anoAtual = new Date().getFullYear().toString();
+    const matricula = `${cpf}${anoAtual}${curso}`;
     
     fetch('http://localhost:3333/Auth/signup', {
         method: 'POST',
@@ -18,7 +44,7 @@ function enviarFormulario(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            matricula: '501915008065',
+            matricula: matricula,
             password: senha,
             nome: nome,
             email: email,
@@ -44,3 +70,4 @@ function enviarFormulario(event) {
 }
 
 document.getElementById('meuFormulario').addEventListener('submit', enviarFormulario);
+carregarCursos();

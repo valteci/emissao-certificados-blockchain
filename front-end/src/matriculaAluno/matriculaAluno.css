@@ -1,49 +1,72 @@
-body {
-    font-family: Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+
+:root {
+
+    --paleta-fundo: #b796ff;
+    --paleta-rosa0: #B841D9;
+    --paleta-rosa1: #c800ff;
+    --paleta-azul1: #3C35F2;
+    --paleta-azul2: #3703A6;
+    --paleta-azul3: #1C1973;
+    --paleta-azul4: #100E40;
+}
+
+
+html {
+    font-family: 'Play', sans-serif;
 }
 .container {
     width: 50%;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    background-color: var(--paleta-fundo);
 }
 h1 {
     text-align: center;
-    color: #333;
+    color: var(--paleta-azul3);
 }
 form {
     margin-top: 20px;
 }
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 .form-group label {
     display: block;
     margin-bottom: 5px;
+    color: var(--paleta-azul4);
 }
-.form-group input {
+.form-group input, .form-group select {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box; /* Adiciona padding dentro do width e height */
+    border: 3px solid var(--paleta-azul1);
+    border-radius: 20px;
+    box-sizing: border-box;
+    font-family: 'Play', sans-serif;
 }
 .form-group input[type="submit"] {
-    background-color: #5cb85c;
-    color: white;
-    border: none;
+        
+    border-radius: 20px;
+    background-color: var(--paleta-azul2);
+    color: var(--paleta-rosa1);
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-weight: bold;
+    font-family: 'Play', sans-serif;
+    cursor: pointer;    
 }
 .form-group input[type="submit"]:hover {
-    background-color: #4cae4c;
+    background-color: var(--paleta-azul4);
+    transition: ease-in-out 0.3s;
+    transform: scale(1.05);
 }
 
 .avisoEnderecoEth {
     font-size: 0.8rem;
+    color: var(--paleta-azul4);
 }
 
 #meuFormulario div:last-child {
