@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Dark Hash</title>
+        <link 
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        >
+
+        <link rel="stylesheet" href="./css/home.css">
+
+    </head>
+
+    <body>
+
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="./index.html">
+                <img src="../img/logo.png" alt="Bootstrap" width="70" height="80">
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item ms-5 me-5">
+                    <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                  </li>
+                  <li class="nav-item me-5">
+                    <a class="nav-link" href="../matriculaAluno/matriculas.html">Matr&iacute;cula</a>
+                  </li>
+                  <li class="nav-item me-5">
+                    <a class="nav-link" href="#">Certificados</a>
+                  </li>
+                  <li class="nav-item dropdown me-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Entrar
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                      <li><a class="dropdown-item" href="#">Aluno</a></li>
+                      <li><a class="dropdown-item" href="#">Institui&ccedil;&atilde;o</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+
+        <!-- carrossel -->
+        <div id="carrosselHome" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="../img/carrossel_img1.png" class="d-block w-100" alt="asdf" height="500px">
+            </div>
+            <div class="carousel-item">
+              <img src="../img/carrossel_img2.png" class="d-block w-100" alt="ggg" height="500px">
+            </div>
+            <div class="carousel-item">
+              <img src="../img/carrossel_img3.png" class="d-block w-100" alt="vvv" height="500px">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carrosselHome" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carrosselHome" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
+        <!-- colunas -->
+        <div class="container px-4 py-5" id="featured-3">
+          <h2 class="pb-2 border-bottom">Como funciona</h2>
+          <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="feature col">
+              <div class="feature-icon d-inline-flex align-items-center justify-content-center  bg-gradient fs-2 mb-3">
+                <img src="../img/icon_hat.png" alt="asdf">
+              </div>
+              <h3 class="fs-2 text-body-emphasis">Fa&ccedil;a Sua Matr&iacute;cula</h3>
+              <p>
+                Matr&iacute;culas abertas! N&atilde;o perca essa oportunidade &uacute;nica.
+                N&atilde;o perca as promo&ccedil;&otilde;es exclusivas que estamos fazendo
+                esse m&ecirc;s para os cursos de ci&ecirc;ncia de dados, 
+                programa&ccedil;&atilde;o em blockchain e desenvolvimento web.
+
+
+              </p>
+              <a href="/matriculas.html" class="icon-link">
+                Fazer Matr&iacute;cula
+                <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+              </a>
+            </div>
+            <div class="feature col">
+              <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+                <img src="../img/check.png" alt="check">
+              </div>
+              <h3 class="fs-2 text-body-emphasis">Complete o Curso</h3>
+              <p>
+                Temos turmas presenciais e EAD. Após fazer a matrícula, 
+                você já pode iniciar o seu curso!
+              </p>
+              <a href="#" class="icon-link">
+                Ver Cursos
+                <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+              </a>
+            </div>
+            <div class="feature col">
+              <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+                <img src="../img/smart-contract.png" alt="blockchain">
+              </div>
+              <h3 class="fs-2 text-body-emphasis">Pegue Seu Certificado</h3>
+              <p>
+                Ao completar o curso, emitiremos seu certificado em nosso sistema, 
+                e também na blockchain Ethereum para que você nunca o perca.
+              </p>
+              <a href="#" class="icon-link">
+                Ver Certificados
+                <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- footer -->
+        <div class="container">
+          <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+              <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+              </a>
+              <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 Dark Hash.LTDA</span>
+            </div>
+        
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+              <li class="ms-3"><a class="text-body-secondary" href="https://facebook.com/" target="_blank"><img src="../img/facebook_32.png" alt=""></a></li>
+              <li class="ms-3"><a class="text-body-secondary" href="https://instagram.com/" target="_blank"><img src="../img/instagram_32.png" alt=""></a></li>
+              <li class="ms-3"><a class="text-body-secondary" href="https://x.com" target="_blank"><img src="../img/x_32.png" alt=""></a></li>
+            </ul>
+          </footer>
+        </div>
+
+        <script 
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        >
+        </script>
+    </body>
+</html>
