@@ -1,15 +1,17 @@
-const cursos = {
+let cursos = {
 
 }
 
-function carregarCursos() {
-    cursos['Programação Python'] = 1;
-    cursos['Inteligência Artificial'] = 2;
-    cursos['Desenvolvimento Web'] = 3;
-    cursos['Arduino'] = 4;
-
-
+function limparFormulario() {
     
+}
+
+async function carregarCursos() {
+
+    const response = await fetch('http://localhost:3333/curso');
+    const json = await response.json();
+    
+    cursos = json;
 
     const select = document.getElementById('comboboxCurso');
 
@@ -32,11 +34,12 @@ function enviarFormulario(event) {
     const data = document.getElementById('dataNascimento').value;
     const senha = document.getElementById('senha').value;
     const enderecoEth = document.getElementById('enderecoEth').value;
-    const curso = document.getElementById('comboboxCurso').value;        
-    
+    const curso = document.getElementById('comboboxCurso').value;
+            
+    const codigoCurso = cursos[curso];
     const dataCompleta = `${data}T00:00:00Z`;
     const anoAtual = new Date().getFullYear().toString();
-    const matricula = `${cpf}${anoAtual}${curso}`;
+    const matricula = `${cpf}${anoAtual}${codigoCurso}`;
     
     fetch('http://localhost:3333/Auth/signup', {
         method: 'POST',
@@ -61,6 +64,8 @@ function enviarFormulario(event) {
             return response.json();
         })
         .then(data => {
+            
+            alert("Cadastro realizado com sucesso!");
             console.log('Cadastro realizado com sucesso', data);
             
         })
