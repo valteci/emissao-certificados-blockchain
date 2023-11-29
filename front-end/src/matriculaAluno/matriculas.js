@@ -25,15 +25,15 @@ async function carregarCursos() {
 
 
 function enviarFormulario(event) {
-    
+    console.log('esta funcionando!');
     event.preventDefault();
 
-    const nome = document.getElementById('nome').value;
-    const cpf = document.getElementById('cpf').value;
-    const email = document.getElementById('email').value;
-    const data = document.getElementById('dataNascimento').value;
-    const senha = document.getElementById('senha').value;
-    const enderecoEth = document.getElementById('enderecoEth').value;
+    const nome = document.getElementById('inputNome').value;
+    const cpf = document.getElementById('inputCpf').value;
+    const email = document.getElementById('inputEmail').value;
+    const data = document.getElementById('inputDataNascimento').value;
+    const senha = document.getElementById('inputSenha').value;
+    const enderecoEth = document.getElementById('inputEnderecoEthereum').value;
     const curso = document.getElementById('comboboxCurso').value;
             
     const codigoCurso = cursos[curso];
@@ -67,7 +67,8 @@ function enviarFormulario(event) {
             
             alert("Cadastro realizado com sucesso!");
             console.log('Cadastro realizado com sucesso', data);
-            
+
+            document.getElementById('meuFormulario').reset();
         })
         .catch(error => {
             console.error('Erro ao processar a resposta: ', error);
