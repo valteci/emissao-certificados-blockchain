@@ -2,9 +2,33 @@ let cursos = {
 
 }
 
-function limparFormulario() {
+function copyPrivateKeyToClipboard() {
+    const pk = document.getElementById('chavePrivada');
     
+    pk.select();
+    navigator.clipboard.writeText(pk.value)
+        .then(() => {
+
+        })
+        .catch(err => {
+            alert('Não foi possível copiar o texto para a Área de Transferência');
+        })
 }
+
+function copyAddressToClipboad() {
+    const endereco = document.getElementById('endereco');
+
+    endereco.select();
+    navigator.clipboard.writeText(endereco.value)
+    .then(() => {
+
+    })
+    .catch(err => {
+        alert('Não foi possível copiar o texto para a Área de Transferência');
+    })
+
+}
+
 
 async function carregarCursos() {
 
