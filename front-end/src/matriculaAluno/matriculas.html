@@ -54,30 +54,30 @@
             <form id="meuFormulario">
                 <div class="mb-3">
                     <label for="inputNome" class="form-label">Nome Completo</label>
-                    <input class="form-control" type="text" id="inputNome">
+                    <input class="form-control" type="text" id="inputNome" required>
                 </div>
                 <div class="mb-3">
                     <label for="inputCpf" class="form-label">CPF</label>
-                    <input class="form-control" type="number" id="inputCpf">
+                    <input class="form-control" type="number" id="inputCpf" required>
                 </div>
                 <div class="mb-3">
                     <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
-                    <input class="form-control" type="date" id="inputDataNascimento">
+                    <input class="form-control" type="date" id="inputDataNascimento" required>
                 </div>
                 <div class="mb-3">
                     <label for="inputEmail" class="form-label">Email</label>
-                    <input class="form-control" type="email" id="inputEmail" placeholder="exemplo@gmail.com">
+                    <input class="form-control" type="email" id="inputEmail" placeholder="exemplo@gmail.com" required>
                 </div>
                 <div class="mb-4">
                     <label for="inputSenha" class="form-label">Senha</label>
-                    <input class="form-control" type="password" id="inputSenha" aria-describedby="senhaAjudaInline">
+                    <input class="form-control" type="password" id="inputSenha" aria-describedby="senhaAjudaInline" required>
                     <span id="senhaAjudaInline" class="form-text">
                         Senha deve ter entre 8 a 30 caracteres.
                     </span>
                 </div>
                 <div class="mb-3">
                     <label for="inputConfirmarSenha" class="form-label">Corfirmar Senha</label>
-                    <input class="form-control" type="password" id="inputConfirmarSenha" placeholder="Digite Sua Senhas Novamente">
+                    <input class="form-control" type="password" id="inputConfirmarSenha" placeholder="Digite Sua Senhas Novamente" required>
                 </div>
                 <div class="mb-3">
                     <label for="inputEnderecoEthereum" class="form-label">Digite Seu Endereço Ethereum</label>
@@ -111,7 +111,7 @@
                                 >
                               </div>
 
-                              <button type="button" class="btn btn-primary btn-sm mb-5" onclick="copyPrivateKeyToClipboard()">copiar</button>
+                              <button type="button" class="btn btn-primary btn-sm mb-5" onclick="copyPrivateKeyToClipboard()" id="btnCopiarChavePrivada">copiar</button>
 
                               <div class="mb-1">
                                 <label for="endereco" class="form-label">Endere&ccedil;o</label>
@@ -124,7 +124,7 @@
                                 >                                
                               </div>
                               
-                              <button type="button" class="btn btn-primary btn-sm mb-5" onclick="copyAddressToClipboad()">copiar</button>
+                              <button type="button" class="btn btn-primary btn-sm mb-5" onclick="copyAddressToClipboad()" id="btnCopiarEndereco">copiar</button>
                               
                               <script src="../../dist/bundle.js"></script>
                             </form>

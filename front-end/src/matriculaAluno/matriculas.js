@@ -9,6 +9,16 @@ function copyPrivateKeyToClipboard() {
     navigator.clipboard.writeText(pk.value)
         .then(() => {
 
+            const botaoCopy = document.getElementById('btnCopiarChavePrivada');
+            botaoCopy.style.background = 'green';
+            botaoCopy.textContent = 'copiado ✔️';
+
+            const animacao = () => {
+                botaoCopy.style.background = '#0b5ed7';
+                botaoCopy.textContent = 'copiar';
+            }
+
+            setTimeout(animacao, 500);
         })
         .catch(err => {
             alert('Não foi possível copiar o texto para a Área de Transferência');
@@ -21,7 +31,16 @@ function copyAddressToClipboad() {
     endereco.select();
     navigator.clipboard.writeText(endereco.value)
     .then(() => {
+        const botaoCopy = document.getElementById('btnCopiarEndereco');
+            botaoCopy.style.background = 'green';
+            botaoCopy.textContent = 'copiado ✔️';
 
+            const animacao = () => {
+                botaoCopy.style.background = '#0b5ed7';
+                botaoCopy.textContent = 'copiar';
+            }
+
+            setTimeout(animacao, 500);
     })
     .catch(err => {
         alert('Não foi possível copiar o texto para a Área de Transferência');
