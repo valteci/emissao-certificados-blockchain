@@ -12,12 +12,13 @@
             crossorigin="anonymous"
         >
 
-        <link rel="stylesheet" href="./css/home.css">
+        <link href="./certificados.css" rel="stylesheet">
 
     </head>
 
     <body>
 
+      <div class="wrapper">
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
             <div class="container-fluid">
@@ -52,26 +53,50 @@
             </div>
         </nav>
 
-        
+        <div class="container alert alert-primary mt-5" role="alert">
+          <h3 class="text-break text-wrap" id="publicKey">Chave Pública da Instituição: </h3>
+        </div>
 
+        <div class="container alert alert-info" role="alert">
+          <h4 class="text-break text-wrap">
+            Todo certificado emitido pela institui&ccedil;&atilde;o 
+            ter&aacute; como chave p&uacute;blica emissora a chave 
+            p&uacute;blica da instiui&ccedil;&atilde;o. Qualquer 
+            certificado que n&atilde;o tenha sido emitido pela 
+            chave p&uacute;blica da institui&ccedil;&atilde;o não 
+            foi emitido por esta institui&ccedil;&atilde;o
+          </h4>
+          
+        </div>
 
+        <div class="container mt-3">
+          <form id="meuFormulario">
+              <div class="mb-3">
+                  <label for="inputEnderecoCertificado" class="form-label">Endere&ccedil;o do Certificado</label>
+                  <input class="form-control" type="text" id="inputEnderecoCertificado" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Verificar Certificado</button>
+          </form>
+        </div>
 
         <!-- footer -->
-        <div class="container">
-          <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-            <div class="col-md-4 d-flex align-items-center">
-              <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-              </a>
-              <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 Dark Hash.LTDA</span>
-            </div>
-        
-            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-              <li class="ms-3"><a class="text-body-secondary" href="https://facebook.com/" target="_blank"><img src="../img/facebook_32.png" alt=""></a></li>
-              <li class="ms-3"><a class="text-body-secondary" href="https://instagram.com/" target="_blank"><img src="../img/instagram_32.png" alt=""></a></li>
-              <li class="ms-3"><a class="text-body-secondary" href="https://x.com" target="_blank"><img src="../img/x_32.png" alt=""></a></li>
-            </ul>
-          </footer>
+        <div class="footer bg-light py-3">
+          <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+              <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                  <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+                </a>
+                <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 Dark Hash.LTDA</span>
+              </div>
+          
+              <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="text-body-secondary" href="https://facebook.com/" target="_blank"><img src="../img/facebook_32.png" alt=""></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="https://instagram.com/" target="_blank"><img src="../img/instagram_32.png" alt=""></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="https://x.com" target="_blank"><img src="../img/x_32.png" alt=""></a></li>
+              </ul>
+            </footer>
+          </div>
         </div>
 
         <script 
@@ -80,5 +105,10 @@
             crossorigin="anonymous"
         >
         </script>
+
+        <script src="./certificados.js"></script>
+
+      </div>
+
     </body>
 </html>
