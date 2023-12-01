@@ -118,5 +118,5 @@ function enviarFormulario(event) {
         });
 }
 
-document.getElementById('meuFormulario').addEventListener('submit', enviarFormulario);
+document.getElementById('btnEnviarForm').addEventListener('click', enviarFormulario);
 carregarCursos();

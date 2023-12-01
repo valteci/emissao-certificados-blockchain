@@ -1,8 +1,11 @@
+async function verificarCertificado() {
+    
+}
+
 async function getPublicKey() {
     const response = await fetch('http://localhost:3333/certificado/publicKey');
     const json = await response.json();
     return json.publicKey;
-
 }
 
 function showPublicKey() {
@@ -16,5 +19,7 @@ function showPublicKey() {
         })
 }
 
+document.getElementById('formularioEnderecoContrato')
+    .addEventListener('submit', verificarCertificado);
 
 showPublicKey();
