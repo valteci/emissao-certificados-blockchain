@@ -106,12 +106,9 @@ function enviarFormulario(event) {
             
             return response.json();
         })
-        .then(data => {
-            
-            alert("Cadastro realizado com sucesso!");
-            console.log('Cadastro realizado com sucesso', data);
+        .then(data => {                                    
 
-            document.getElementById('meuFormulario').reset();
+            window.location.href = './redirecionamento/redirecionamento.html';
         })
         .catch(error => {
             console.error('Erro ao processar a resposta: ', error);
