@@ -1,6 +1,6 @@
 const segundos = document.getElementById('segundos');
 let timer = null;
-let tempoTotal = 5;
+let tempoTotal = 10;
 
 function decrementarTempo() {
     tempoTotal -= 1;
