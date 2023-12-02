@@ -1,0 +1,14 @@
+:root {
+    --btn-hover-background-color: #0D6EFD;
+    --btn-hover-color: #fff;
+}
+
+.sidebar {
+    width: 180px;
+    height: 80vh;
+}
+
+.opcao:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-hover-color);
+}
