@@ -1,3 +1,93 @@
-.col .button {
-    
+:root {
+    --espessura-borda: 8px;
+    --cor-borda: #444;
+    --tipo-borda: solid;
+    --cor-botao: #6c757d;
+}
+
+.coluna {
+    height: 300px;
+    padding: 0px;
+    background-color: var(--cor-botao);
+
+}
+
+.btnBottomLeft {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.btnBottomRight {
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.btnTopLeft {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.btnTopRight {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.gridTopLeft {
+    border: var(--espessura-borda) var(--cor-borda) var(--tipo-borda);
+}
+
+.gridTopRight {
+    border-top: var(--espessura-borda) var(--cor-borda) var(--tipo-borda);
+    border-right: var(--espessura-borda) var(--cor-borda) var(--tipo-borda);
+    border-bottom: var(--espessura-borda) var(--cor-borda) var(--tipo-borda);
+}
+
+.gridBottomLeft {
+    border-left: var(--espessura-borda) var(--cor-borda) var(--tipo-borda);
+    border-bottom: var(--espessura-borda) var(--cor-borda) var(--tipo-borda);
+    border-right: var(--espessura-borda) var(--cor-borda) var(--tipo-borda);
+}
+
+.gridBottomRight {
+    border-bottom: var(--espessura-borda) var(--cor-borda) var(--tipo-borda);
+    border-right: var(--espessura-borda) var(--cor-borda) var(--tipo-borda);
+}
+
+
+.gridBottomLeft, .btnBottomLeft {
+    border-bottom-left-radius: 50px;
+}
+
+.gridBottomRight, .btnBottomRight {
+    border-bottom-right-radius: 50px;
+}
+
+.gridTopLeft, .btnTopLeft {
+    border-top-left-radius: 50px;
+}
+
+.gridTopRight, .btnTopRight {
+    border-top-right-radius: 50px;
+}
+
+.btn {
+    font-size: 3rem;
+    background-color: var(--cor-botao);
+    border-color: var(--cor-botao);
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    transition: ease-in-out 0.2s;
+    background-color: #212529;
+    border-color: white;
+}
+
+.btn:active {
+    transform: scale(1);
+    background-color: black !important;
 }
