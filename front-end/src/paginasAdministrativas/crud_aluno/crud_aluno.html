@@ -53,6 +53,8 @@
       </nav>
 
       <main class="d-flex flex-nowrap">
+
+        <!-- sidebar -->
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary sidebar">
           <div>
               <img src="../../img/opcoes.png" alt="" width="40" height="32">
@@ -61,17 +63,17 @@
           <hr>
           <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <button class="btn btn-lg w-100 mb-3 opcao">
+                <button class="btn btn-lg w-100 mb-3 opcao" onclick="opcaoConsulta()">
                     Consultar
                 </button>
             </li>
             <li>
-                <button class="btn btn-lg w-100 mb-3 opcao">
+                <button class="btn btn-lg w-100 mb-3 opcao" onclick="opcaoAlterar()">
                     Alterar
                 </button>
             </li>
             <li>
-              <button class="btn btn-lg w-100 mb-3 opcao">
+              <button class="btn btn-lg w-100 mb-3 opcao" onclick="opcaoRemover()">
                   Remover
               </button>
           </li>
@@ -79,11 +81,134 @@
           </ul>
         </div>
 
+        <!-- separador -->
         <div class="b-example-divider b-example-vr"></div>
+        
+
+        <!-- container consultar -->
+        <div class="container" id="consultar">
+
+          <!-- constular por id-->
+          <div class="container mt-5 p-3">
+            <form class="row g-2">
+              <div class="col-auto">
+                <input type="text" readonly class="form-control-plaintext" id="labelMatricula" value="Matr&iacute;cula Do Estudante">
+              </div>
+              <div class="col-auto">                
+                <input type="text" class="form-control" id="inputMatriculaAluno" placeholder="Matr&iacute;cula">
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Buscar Aluno</button>
+              </div>
+            </form>
+          </div>
+          
+          <div class="container mt-4 p-3">
+            <div class="text-end">
+              <button class="btn btn-primary">Buscar Todos Os Alunos</button>
+            </div>
+          </div>
+
+          <div class="container mt-1 p-3 text-center" id="tabelaAluno">
+            <h1>RESULTADO DA BUSCA</h1>
+            <table class="table">
+              <thead>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">CPF</th>
+                <th scope="col">Matr&iacute;cula</th>
+                <th scope="col">Data De Nascimento</th>
+                <th scope="col">Endere&ccedil;o Ethereum</th>
+                <th scope="col">Email</th>
+              </thead>
+            </table>
+          </div>
+        </div>
+
+        <!-- container alterar -->
+        <div class="container" id="alterar">
+          <div class="container mt-5 p-3">
+            <form class="row g-2">
+              <div class="p-3 form-alterar">
+                <div class="mb-3">
+                  <label for="inputMatriculaAlterar" class="form-label">Matr&iacute;cula Do Estudante</label>
+                  <input class="form-control" type="text" id="inputMatriculaAlterar">
+                </div>
+              </div>
+            </form>
+
+            <form class="row g-2 mt-3">
+              <div class="p-3 form-alterar" style="border-radius: 50px; border: 1px solid red;">
+
+                <div class="mb-4">
+                  <label for="inputNomeAlterar" class="form-label">Nome</label>
+                  <div class="d-flex align-items-center">
+                    <input class="form-control me-3" type="text" id="inputNomeAlterar">
+                    <input class="form-check-input" type="checkbox" value="" id="ckbNomeAlterar">
+                    <label class="form-check-label" for="ckbNomeAlterar">Alterar</label>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="inputCPFAlterar" class="form-label">CPF</label>
+                  <div class="d-flex align-items-center">
+                    <input class="form-control me-3" type="text" id="inputCPFAlterar">
+                    <input class="form-check-input" type="checkbox" value="" id="ckbCPFAlterar">
+                    <label class="form-check-label" for="ckbCPFAlterar">Alterar</label>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="inputDataNascimentoAlterar" class="form-label">Data De Nascimento</label>
+                  <div class="d-flex align-items-center">
+                    <input class="form-control me-3" type="date" id="inputDataNascimentoAlterar">
+                    <input class="form-check-input" type="checkbox" value="" id="ckbDataNascimentoAlterar">
+                    <label class="form-check-label" for="ckbDataNascimentoAlterar">Alterar</label>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="inputEnderecoEthereum" class="form-label">Endere&ccedil;o Ethereum</label>
+                  <div class="d-flex align-items-center">
+                    <input class="form-control me-3" type="text" id="inputEnderecoEthereum">
+                    <input class="form-check-input" type="checkbox" value="" id="ckbEnderecoEthereum">
+                    <label class="form-check-label" for="ckbEnderecoEthereum">Alterar</label>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="inputEmailAlterar" class="form-label">Email</label>
+                  <div class="d-flex align-items-center">
+                    <input class="form-control me-3" type="email" id="inputEmailAlterar">
+                    <input class="form-check-input" type="checkbox" value="" id="ckbEmailAlterar">
+                    <label class="form-check-label" for="ckbEmailAlterar">Alterar</label>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="inputAlterarSenha" class="form-label">Senha</label>
+                  <div class="d-flex align-items-center">
+                    <input class="form-control me-3" type="text" id="inputAlterarSenha">
+                    <input class="form-check-input" type="checkbox" value="" id="ckbSenhaAlterar">
+                    <label class="form-check-label" for="ckbSenhaAlterar">Alterar</label>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+
+            <div class="container mt-3">
+              <button class="btn btn-primary w-100">Alterar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- container remover -->
+        <div class="container" id="remover">
+
+        </div>
+        
       </main>
-      
-
-
 
       <!-- footer -->
       <div class="container">

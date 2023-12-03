@@ -3,6 +3,15 @@
     --btn-hover-color: #fff;
 }
 
+#alterar, #remover {
+  display: none;
+}
+
+.form-alterar {
+  border-radius: 50px;
+  border: 1px solid red;
+}
+
 .sidebar {
     width: 180px;
     height: 80vh;
@@ -12,3 +21,47 @@
     background-color: var(--btn-hover-background-color);
     color: var(--btn-hover-color);
 }
+
+@media (max-width: 710px) {
+    .d-flex {
+      flex-direction: column;
+    }
+  
+    .b-example-divider {
+      display: none;
+    }
+  
+    .sidebar {
+        height: 20vh;
+        width: 100vw;
+    }
+
+    #tabelaAluno {
+        padding: 0px;
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin-top: 0;
+        list-style: none;        
+      }
+      
+      .sidebar li {
+        flex: 0 0 100%;
+        margin-bottom: 10px; /* Ajuste a margem conforme necessário */
+      }
+      
+      .sidebar .opcao {
+        width: 100%;
+      }
+}
+
+@media (max-width: 510px) {
+    #tabelaAluno {
+        overflow: auto;
+    }
+}
+  
