@@ -93,5 +93,24 @@
 }
 
 @media (max-width: 769px) {
+    .btnTopLeft, .btnTopRight, .btnBottomLeft, .btnBottomRight, 
+    .gridTopLeft, .gridTopRight, .gridBottomLeft, .gridBottomRight {
+        border-radius: 50px;
+    }
+
+    .gridTopRight {
+        border-left: var(--espessura-borda) var(--cor-borda) var(--tipo-borda);
+        border-top: 0px;
+    }
+
+    .gridBottomLeft {
+        border-top: 0px;
+    }
+
+    .gridBottomRight {
+        border-left: var(--espessura-borda) var(--cor-borda) var(--tipo-borda);
+    }
     
+
+
 }
