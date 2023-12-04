@@ -3,11 +3,11 @@
     --btn-hover-color: #fff;
 }
 
-#alterar, #remover {
+#alterar, #remover, #cadastrar {
   display: none;
 }
 
-.form-alterar, .form-remover {
+.form-alterar, .form-cadastrar, .form-remover {
   border-radius: 10px;
   border: 2px solid black;
 }

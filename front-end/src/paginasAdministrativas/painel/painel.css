@@ -91,3 +91,7 @@
     transform: scale(1);
     background-color: black !important;
 }
+
+@media (max-width: 769px) {
+    
+}

@@ -12,7 +12,7 @@
             crossorigin="anonymous"
         >
 
-        <link rel="stylesheet" href="./crud_aluno.css">
+        <link rel="stylesheet" href="./crud_curso.css">
 
     </head>
 
@@ -58,13 +58,18 @@
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary sidebar">
           <div>
               <a href="../painel/painel.html">
-                <img src="../../img/painel.png" alt="" width="40" height="32">
-                <span class="fs-4">Painel</span>
+              <img src="../../img/painel.png" alt="" width="40" height="32">
+              <span class="fs-4">Painel</span>
               </a>
           </div>
           <hr>
           <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
+            <li>
+              <button class="btn  btn-sm w-100 mb-3 opcao" onclick="opcaoCadastrar()">
+                  Cadastrar
+              </button>
+            </li>
+            <li>
                 <button class="btn btn-sm w-100 mb-3 opcao" onclick="opcaoConsulta()">
                     Consultar
                 </button>
@@ -78,14 +83,39 @@
               <button class="btn btn-sm w-100 mb-3 opcao" onclick="opcaoRemover()">
                   Remover
               </button>
-          </li>
-              <!-- Adicione botões similares para os outros itens da lista -->
+            </li>
           </ul>
         </div>
 
         <!-- separador -->
         <div class="b-example-divider b-example-vr"></div>
         
+        <!-- container cadastrar -->
+        <div class="container" id="cadastrar">
+          <div class="container mt-5 p-3">
+            <form id="fomularioCadastrarCurso">
+              <div class="container form-cadastrar p-3" >
+                <div class="mb-3">
+                    <label for="inputIdCursoCadastrar" class="form-label">C&oacute;digo Do Curso</label>
+                    <input class="form-control" type="number" id="inputIdCursoCadastrar">
+                </div>
+                <div class="mb-3">
+                  <label for="inputNomeCursoCadastrar" class="form-label">Nome Do Curso</label>
+                  <input class="form-control" type="text" id="inputNomeCursoCadastrar">
+                </div>
+                <div class="mb-3">
+                  <label for="inputCargaHorariaCursoCadastrar" class="form-label">Carga-Hor&aacute;ria Do Curso &lpar;Em Horas&rpar;</label>
+                  <input class="form-control" type="number" id="inputCargaHorariaCursoCadastrar">
+                </div>
+                <div class="mb-3">
+                  <label for="textAreaDescricaoCursoCadastrar" class="form-label">Descri&ccedil;&atilde;o Do Curso</label>
+                  <textarea class="form-control" id="textAreaDescricaoCursoCadastrar" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" id="btnCadastrarCurso">Cadastrar Curso</button>
+              </div>
+            </form>
+          </div>
+        </div>
 
         <!-- container consultar -->
         <div class="container" id="consultar">
@@ -94,20 +124,20 @@
           <div class="container mt-5 p-3">
             <form class="row g-2">
               <div class="col-auto">
-                <input type="text" readonly class="form-control-plaintext" id="labelMatricula" value="Matr&iacute;cula Do Estudante">
+                <input type="text" readonly class="form-control-plaintext" id="labelCodigoCursoConsultar" value="C&oacute;digo Do Curso">
               </div>
               <div class="col-auto">                
-                <input type="text" class="form-control" id="inputMatriculaAluno" placeholder="Matr&iacute;cula">
+                <input type="text" class="form-control" id="inputCodigoCursoConsultar" placeholder="C&oacute;digo">
               </div>
               <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3">Buscar Aluno</button>
+                <button type="submit" class="btn btn-primary mb-3">Buscar Curso</button>
               </div>
             </form>
           </div>
           
           <div class="container mt-4 p-3">
             <div class="text-end">
-              <button class="btn btn-primary">Buscar Todos Os Alunos</button>
+              <button class="btn btn-primary">Buscar Todos Os Cursos</button>
             </div>
           </div>
 
@@ -116,12 +146,10 @@
             <table class="table">
               <thead>
                 <th scope="col">#</th>
+                <th scope="col">C&oacute;digo</th>
                 <th scope="col">Nome</th>
-                <th scope="col">CPF</th>
-                <th scope="col">Matr&iacute;cula</th>
-                <th scope="col">Data De Nascimento</th>
-                <th scope="col">Endere&ccedil;o Ethereum</th>
-                <th scope="col">Email</th>
+                <th scope="col">Carga-Hor&aacute;ria</th>
+                <th scope="col">Descri&ccedil;&atilde;o</th>
               </thead>
             </table>
           </div>
@@ -133,8 +161,8 @@
             <form class="row g-2">
               <div class="p-3 form-alterar">
                 <div class="mb-3">
-                  <label for="inputMatriculaAlterar" class="form-label">Matr&iacute;cula Do Estudante A ser Alterado</label>
-                  <input class="form-control" type="text" id="inputMatriculaAlterar">
+                  <label for="inputCodigoCursoAlterar" class="form-label">C&oacute;digo Do Curso A Ser Alterado</label>
+                  <input class="form-control" type="number" id="inputCodigoCursoAlterar">
                 </div>
               </div>
             </form>
@@ -143,56 +171,38 @@
               <div class="p-3 form-alterar">
 
                 <div class="mb-4">
-                  <label for="inputNomeAlterar" class="form-label">Novo Nome</label>
+                  <label for="inputCodigoCursoAlterar" class="form-label">Novo C&oacute;digo</label>
                   <div class="d-flex align-items-center">
-                    <input class="form-control me-3" type="text" id="inputNomeAlterar">
-                    <input class="form-check-input" type="checkbox" value="" id="ckbNomeAlterar">
-                    <label class="form-check-label" for="ckbNomeAlterar">Alterar</label>
+                    <input class="form-control me-3" type="number" id="inputCodigoCursoAlterar">
+                    <input class="form-check-input" type="checkbox" value="" id="ckbCodigoCursoAlterar">
+                    <label class="form-check-label" for="ckbCodigoCursoAlterar">Alterar</label>
                   </div>
                 </div>
 
                 <div class="mb-4">
-                  <label for="inputCPFAlterar" class="form-label">Novo CPF</label>
+                  <label for="inputNomeCursoAlterar" class="form-label">Novo Nome</label>
                   <div class="d-flex align-items-center">
-                    <input class="form-control me-3" type="text" id="inputCPFAlterar">
-                    <input class="form-check-input" type="checkbox" value="" id="ckbCPFAlterar">
-                    <label class="form-check-label" for="ckbCPFAlterar">Alterar</label>
+                    <input class="form-control me-3" type="text" id="inputNomeCursoAlterar">
+                    <input class="form-check-input" type="checkbox" value="" id="ckbNomeCursoAlterar">
+                    <label class="form-check-label" for="ckbNomeCursoAlterar">Alterar</label>
                   </div>
                 </div>
 
                 <div class="mb-4">
-                  <label for="inputDataNascimentoAlterar" class="form-label">Nova Data De Nascimento</label>
+                  <label for="inputCargaHorariaCursoAlterar" class="form-label">Nova Carga-Hor&aacute;ria</label>
                   <div class="d-flex align-items-center">
-                    <input class="form-control me-3" type="date" id="inputDataNascimentoAlterar">
-                    <input class="form-check-input" type="checkbox" value="" id="ckbDataNascimentoAlterar">
-                    <label class="form-check-label" for="ckbDataNascimentoAlterar">Alterar</label>
+                    <input class="form-control me-3" type="number" id="inputCargaHorariaCursoAlterar">
+                    <input class="form-check-input" type="checkbox" value="" id="ckbCargaHorariaCursoAlterar">
+                    <label class="form-check-label" for="ckbCargaHorariaCursoAlterar">Alterar</label>
                   </div>
                 </div>
 
                 <div class="mb-4">
-                  <label for="inputEnderecoEthereum" class="form-label">Novo Endere&ccedil;o Ethereum</label>
+                  <label for="textAreaDescricaoCursoAlterar" class="form-label">Nova Descri&ccedil;&atilde;o</label>
                   <div class="d-flex align-items-center">
-                    <input class="form-control me-3" type="text" id="inputEnderecoEthereum">
-                    <input class="form-check-input" type="checkbox" value="" id="ckbEnderecoEthereum">
-                    <label class="form-check-label" for="ckbEnderecoEthereum">Alterar</label>
-                  </div>
-                </div>
-
-                <div class="mb-4">
-                  <label for="inputEmailAlterar" class="form-label">Novo Email</label>
-                  <div class="d-flex align-items-center">
-                    <input class="form-control me-3" type="email" id="inputEmailAlterar">
-                    <input class="form-check-input" type="checkbox" value="" id="ckbEmailAlterar">
-                    <label class="form-check-label" for="ckbEmailAlterar">Alterar</label>
-                  </div>
-                </div>
-
-                <div class="mb-4">
-                  <label for="inputAlterarSenha" class="form-label">Nova Senha</label>
-                  <div class="d-flex align-items-center">
-                    <input class="form-control me-3" type="text" id="inputAlterarSenha">
-                    <input class="form-check-input" type="checkbox" value="" id="ckbSenhaAlterar">
-                    <label class="form-check-label" for="ckbSenhaAlterar">Alterar</label>
+                    <textarea class="form-control me-3" id="textAreaDescricaoCursoAlterar" rows="3"></textarea>
+                    <input class="form-check-input" type="checkbox" value="" id="ckbDescricaoCursoAlterar">
+                    <label class="form-check-label" for="ckbDescricaoCursoAlterar">Alterar</label>
                   </div>
                 </div>
 
@@ -211,8 +221,8 @@
             <form class="row g-2">
               <div class="p-3 form-remover">
                 <div class="mb-3">
-                  <label for="inputMatriculaRemover" class="form-label">Matr&iacute;cula Do Estudante</label>
-                  <input class="form-control" type="text" id="inputMatriculaRemover">
+                  <label for="inputCodigoCursoRemover" class="form-label">C&oacute;digo Do Curso</label>
+                  <input class="form-control" type="text" id="inputCodigoCursoRemover">
                 </div>
               </div>
               <div class="container mt-3">
@@ -249,7 +259,7 @@
       >
       </script>
 
-      <script src="crud_aluno.js"></script>
+      <script src="./crud_curso.js"></script>
     </body>
 
 </html>
