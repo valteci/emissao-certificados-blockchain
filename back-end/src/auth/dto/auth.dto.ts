@@ -8,9 +8,9 @@ import {
 
 
 export class AuthDtoSignin {
-    @IsString()
+    @IsEmail()
     @IsNotEmpty()
-    matricula: string;
+    email: string;
 
     @IsString()
     @IsNotEmpty()

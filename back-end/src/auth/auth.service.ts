@@ -23,7 +23,7 @@ export class AuthService {
         const user = 
             await this.prisma.student.findUnique({
                 where: {
-                    matricula: dto.matricula,
+                    email: dto.email,
                 },
             });
         
