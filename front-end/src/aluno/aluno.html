@@ -12,7 +12,7 @@
             crossorigin="anonymous"
         >
 
-        <link rel="stylesheet" href="./crud_aluno.css">
+        <link rel="stylesheet" href="./aluno.css">
 
     </head>
 
@@ -21,8 +21,8 @@
       <!-- navbar -->
       <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
           <div class="container-fluid">
-            <a class="navbar-brand" href="../../home/index.html">
-              <img src="../../img/logo.png" alt="Bootstrap" width="70" height="80">
+            <a class="navbar-brand" href="../home/index.html">
+              <img src="../img/logo.png" alt="Bootstrap" width="70" height="80">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -30,21 +30,21 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item ms-5 me-5">
-                  <a class="nav-link active" aria-current="page" href="../../home/index.html">Home</a>
+                  <a class="nav-link active" aria-current="page" href="../home/index.html">Home</a>
                 </li>
                 <li class="nav-item me-5">
-                  <a class="nav-link" href="../../matriculaAluno/matriculas.html">Matr&iacute;cula</a>
+                  <a class="nav-link" href="../matriculaAluno/matriculas.html">Matr&iacute;cula</a>
                 </li>
                 <li class="nav-item me-5">
-                  <a class="nav-link" href="../../certificados/certificados.html">Certificados</a>
+                  <a class="nav-link" href="../certificados/certificados.html">Certificados</a>
                 </li>
                 <li class="nav-item dropdown me-5">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Entrar
                   </a>
                   <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><a class="dropdown-item" href="../../login/loginAluno.html">Aluno</a></li>
-                    <li><a class="dropdown-item" href="../../login/loginInstitucional.html">Institui&ccedil;&atilde;o</a></li>
+                    <li><a class="dropdown-item" href="../login/loginAluno.html">Aluno</a></li>
+                    <li><a class="dropdown-item" href="../login/loginInstitucional.html">Institui&ccedil;&atilde;o</a></li>
                   </ul>
                 </li>
               </ul>
@@ -57,93 +57,36 @@
         <!-- sidebar -->
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary sidebar">
           <div>
-              <a href="../painel/painel.html">
-                <img src="../../img/painel.png" alt="" width="40" height="32">
-                <span class="fs-4">Painel</span>
-              </a>
+              <img src="../img/estudante.png" alt="" width="40" height="32">
+              <span class="fs-4">Nome</span>
           </div>
           <hr>
           <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <button class="btn btn-sm w-100 mb-3 opcao" onclick="opcaoConsulta()">
-                    Consultar
-                </button>
-            </li>
             <li>
-                <button class="btn btn-sm w-100 mb-3 opcao" onclick="opcaoAlterar()">
-                    Alterar
-                </button>
-            </li>
-            <li>
-              <button class="btn btn-sm w-100 mb-3 opcao" onclick="opcaoRemover()">
-                  Remover
+              <button class="btn  btn-sm w-100 mb-3 opcao" onclick="opcaoDadosAluno()">
+                  Meus Dados
               </button>
-          </li>
-              <!-- Adicione botões similares para os outros itens da lista -->
+            </li>
+            <li>
+                <button class="btn btn-sm w-100 mb-3 opcao" onclick="opcaoCertificadosAluno()">
+                    Meus Certificados
+                </button>
+            </li>
           </ul>
         </div>
 
         <!-- separador -->
         <div class="b-example-divider b-example-vr"></div>
-        
-
-        <!-- container consultar -->
-        <div class="container" id="consultar">
-
-          <!-- constular por id-->
+                
+        <!-- alterar dados alunos -->
+        <div class="container" id="alterarDadosAluno">
           <div class="container mt-5 p-3">
-            <form class="row g-2">
-              <div class="col-auto">
-                <input type="text" readonly class="form-control-plaintext" id="labelMatricula" value="Matr&iacute;cula Do Estudante">
-              </div>
-              <div class="col-auto">                
-                <input type="text" class="form-control" id="inputMatriculaAluno" placeholder="Matr&iacute;cula">
-              </div>
-              <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3">Buscar Aluno</button>
-              </div>
-            </form>
-          </div>
-          
-          <div class="container mt-4 p-3">
-            <div class="text-end">
-              <button class="btn btn-primary">Buscar Todos Os Alunos</button>
-            </div>
-          </div>
-
-          <div class="container mt-1 p-3 text-center" id="tabelaAluno">
-            <h1>RESULTADO DA BUSCA</h1>
-            <table class="table">
-              <thead>
-                <th scope="col">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">CPF</th>
-                <th scope="col">Matr&iacute;cula</th>
-                <th scope="col">Data De Nascimento</th>
-                <th scope="col">Endere&ccedil;o Ethereum</th>
-                <th scope="col">Email</th>
-              </thead>
-            </table>
-          </div>
-        </div>
-
-        <!-- container alterar -->
-        <div class="container" id="alterar">
-          <div class="container mt-5 p-3">
-            <form class="row g-2">
-              <div class="p-3 form-alterar">
-                <div class="mb-3">
-                  <label for="inputMatriculaAlterar" class="form-label">Matr&iacute;cula Do Estudante A ser Alterado</label>
-                  <input class="form-control" type="text" id="inputMatriculaAlterar">
-                </div>
-              </div>
-            </form>
-
+            <h1>Seus Dados</h1>
             <form class="row g-2 mt-3">
               <div class="p-3 form-alterar">
 
                 <div class="mb-4">
-                  <label for="inputNomeAlterar" class="form-label">Novo Nome</label>
+                  <label for="inputNomeAlterar" class="form-label">Nome</label>
                   <div class="d-flex align-items-center">
                     <input class="form-control me-3" type="text" id="inputNomeAlterar" disabled>
                     <input class="form-check-input" type="checkbox" value="" id="ckbNomeAlterar">
@@ -152,7 +95,7 @@
                 </div>
 
                 <div class="mb-4">
-                  <label for="inputCPFAlterar" class="form-label">Novo CPF</label>
+                  <label for="inputCPFAlterar" class="form-label">CPF</label>
                   <div class="d-flex align-items-center">
                     <input class="form-control me-3" type="text" id="inputCPFAlterar" disabled>
                     <input class="form-check-input" type="checkbox" value="" id="ckbCPFAlterar">
@@ -161,7 +104,7 @@
                 </div>
 
                 <div class="mb-4">
-                  <label for="inputDataNascimentoAlterar" class="form-label">Nova Data De Nascimento</label>
+                  <label for="inputDataNascimentoAlterar" class="form-label">Data De Nascimento</label>
                   <div class="d-flex align-items-center">
                     <input class="form-control me-3" type="date" id="inputDataNascimentoAlterar" disabled>
                     <input class="form-check-input" type="checkbox" value="" id="ckbDataNascimentoAlterar">
@@ -170,7 +113,7 @@
                 </div>
 
                 <div class="mb-4">
-                  <label for="inputEnderecoEthereum" class="form-label">Novo Endere&ccedil;o Ethereum</label>
+                  <label for="inputEnderecoEthereum" class="form-label">Endere&ccedil;o Ethereum</label>
                   <div class="d-flex align-items-center">
                     <input class="form-control me-3" type="text" id="inputEnderecoEthereum" disabled>
                     <input class="form-check-input" type="checkbox" value="" id="ckbEnderecoEthereum">
@@ -179,23 +122,13 @@
                 </div>
 
                 <div class="mb-4">
-                  <label for="inputEmailAlterar" class="form-label">Novo Email</label>
+                  <label for="inputEmailAlterar" class="form-label">Email</label>
                   <div class="d-flex align-items-center">
                     <input class="form-control me-3" type="email" id="inputEmailAlterar" disabled>
                     <input class="form-check-input" type="checkbox" value="" id="ckbEmailAlterar">
                     <label class="form-check-label" for="ckbEmailAlterar">Alterar</label>
                   </div>
                 </div>
-
-                <div class="mb-4">
-                  <label for="inputAlterarSenha" class="form-label">Nova Senha</label>
-                  <div class="d-flex align-items-center">
-                    <input class="form-control me-3" type="text" id="inputAlterarSenha" disabled>
-                    <input class="form-check-input" type="checkbox" value="" id="ckbSenhaAlterar">
-                    <label class="form-check-label" for="ckbSenhaAlterar">Alterar</label>
-                  </div>
-                </div>
-
               </div>
             </form>
 
@@ -205,20 +138,17 @@
           </div>
         </div>
 
-        <!-- container remover -->
-        <div class="container" id="remover">
-          <div class="container mt-5 p-3">
-            <form class="row g-2">
-              <div class="p-3 form-remover">
-                <div class="mb-3">
-                  <label for="inputMatriculaRemover" class="form-label">Matr&iacute;cula Do Estudante</label>
-                  <input class="form-control" type="text" id="inputMatriculaRemover">
-                </div>
-              </div>
-              <div class="container mt-3">
-                <button class="btn btn-primary w-100">Remover</button>
-              </div>
-            </form>
+        <div class="container" id="certificadosAluno">
+          <div class="container mt-1 p-3 text-center" id="tabelaCertificados">
+            <h1>SEUS CERTIFICADOS</h1>
+            <table class="table">
+              <thead>
+                <th scope="col">#</th>
+                <th scope="col">Nome Do Curso</th>
+                <th scope="col">Data De Emiss&atilde;o</th>
+                <th scope="col">Baixar</th>
+              </thead>
+            </table>
           </div>
         </div>
         
@@ -235,9 +165,9 @@
           </div>
       
           <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3"><a class="text-body-secondary" href="https://facebook.com/" target="_blank"><img src="../../img/facebook_32.png" alt=""></a></li>
-            <li class="ms-3"><a class="text-body-secondary" href="https://instagram.com/" target="_blank"><img src="../../img/instagram_32.png" alt=""></a></li>
-            <li class="ms-3"><a class="text-body-secondary" href="https://x.com" target="_blank"><img src="../../img/x_32.png" alt=""></a></li>
+            <li class="ms-3"><a class="text-body-secondary" href="https://facebook.com/" target="_blank"><img src="../img/facebook_32.png" alt=""></a></li>
+            <li class="ms-3"><a class="text-body-secondary" href="https://instagram.com/" target="_blank"><img src="../img/instagram_32.png" alt=""></a></li>
+            <li class="ms-3"><a class="text-body-secondary" href="https://x.com" target="_blank"><img src="../img/x_32.png" alt=""></a></li>
           </ul>
         </footer>
       </div>
@@ -249,7 +179,7 @@
       >
       </script>
 
-      <script src="crud_aluno.js"></script>
+      <script src="./aluno.js"></script>
     </body>
 
 </html>

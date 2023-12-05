@@ -1,0 +1,67 @@
+:root {
+    --btn-hover-background-color: #0D6EFD;
+    --btn-hover-color: #fff;
+}
+
+#certificadosAluno {
+  display: none;
+}
+
+.form-alterar, .form-cadastrar, .form-remover {
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.sidebar {
+    width: 180px;
+    height: 80vh;
+}
+
+.opcao:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-hover-color);
+}
+
+@media (max-width: 710px) {
+    .d-flex {
+      flex-direction: column;
+    }
+  
+    .b-example-divider {
+      display: none;
+    }
+  
+    .sidebar {
+        height: 20vh;
+        width: 100vw;
+    }
+
+    #tabelaCertificados {
+        padding: 0px;
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin-top: 0;
+        list-style: none;        
+      }
+      
+      .sidebar li {
+        flex: 0 0 100%;
+        margin-bottom: 10px; /* Ajuste a margem conforme necessário */
+      }
+      
+      .sidebar .opcao {
+        width: 100%;
+      }
+}
+
+@media (max-width: 510px) {
+    #tabelaCertificados {
+        overflow: auto;
+    }
+}
+  

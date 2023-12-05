@@ -144,9 +144,59 @@ function buscarAlunosTurma(evt) {
     inserirColunasDeAluno();
 }
 
+
+function eventoChangeCkbCodigoAlterar(event) {
+    const txtCodigo = document.getElementById('inputCodigoTurmaAlterar');
+    
+    txtCodigo.disabled = ! event.target.checked;
+}
+
+function eventoChangeCkbDataInicioAlterar(event) {
+    const txtDataInicio = document.getElementById('inputDataInicioAlterar');
+    
+    txtDataInicio.disabled = ! event.target.checked;
+}
+
+function eventoChangeCkbDataFimAlterar(event) {
+    const txtDataFim = document.getElementById('inputDataFimAlterar');
+    
+    txtDataFim.disabled = ! event.target.checked;
+}
+
+function eventoChangeCkbCodigoCursoAlterar(event) {
+    const txtCodigoCurso = document.getElementById('inputCodigoCursoAlterar');
+    
+    txtCodigoCurso.disabled = ! event.target.checked;
+}
+
+
+
 function main() {
     document.getElementById('formularioTodosAlunosTurma')
         .addEventListener('submit', buscarAlunosTurma);
+
+    
+    const ckbCodigo = document.getElementById('ckbCodigoTurmaAlterar');
+    const ckbDataInicio = document.getElementById('ckbDataInicioAlterar');
+    const ckbDataFim = document.getElementById('ckbDataFimAlterar');
+    const ckbCodigoCurso = document.getElementById('ckbCodigoCursoAlterar');
+    
+
+    ckbCodigo.addEventListener('change', function (event) { 
+        eventoChangeCkbCodigoAlterar(event)
+    });
+
+    ckbDataInicio.addEventListener('change', function (event) { 
+        eventoChangeCkbDataInicioAlterar(event)
+    });
+
+    ckbDataFim.addEventListener('change', function (event) { 
+        eventoChangeCkbDataFimAlterar(event)
+    });
+
+    ckbCodigoCurso.addEventListener('change', function (event) { 
+        eventoChangeCkbCodigoCursoAlterar(event)
+    });
 
     
 }
