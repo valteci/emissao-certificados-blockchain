@@ -11,5 +11,5 @@ function redirecionarParaPaginaEmitirCertificado() {
 }
 
 function redirecionarParaPaginaTurma() {
-    window.location.href = '../crud_turm/crud_turma.html';
+    window.location.href = '../crud_turma/crud_turma.html';
 }
