@@ -7,12 +7,7 @@ export class StudentController {
 
     @UseGuards(AuthGuard('jwt'))
     @Get('me')
-    getMe(@Req() req: Request) {        
-        
-        console.log({
-            user: req.user,
-        })      
-        
-        return 'asdfsdf';
+    getMe(@Req() req: Request) {
+        return {msg: 'asdfsdf'};
     }
 }
