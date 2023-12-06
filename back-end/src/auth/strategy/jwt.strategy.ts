@@ -17,7 +17,15 @@ export class JwtStrategy extends PassportStrategy(
     }
 
     async validate(payload: any) {
-        return 'payload';
+        
+        console.log(payload)
+        const dadosUsuario = {
+            a: "asdfsadfsfd",
+            b: "asdfasfasdfsadfsa",
+            c: 124123,
+            d: false
+        }
+        return dadosUsuario;
     }
 
 }

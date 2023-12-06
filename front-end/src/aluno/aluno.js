@@ -38,7 +38,7 @@ function eventoChangeCkbEmailAlterar(event) {
     txtEmail.disabled = ! event.target.checked;
 }
 
-function main() {
+function adicionarEventos() {
     const ckbNome = document.getElementById('ckbNomeAlterar');
     const ckbCpf = document.getElementById('ckbCPFAlterar');
     const ckbDataNascimento = document.getElementById('ckbDataNascimentoAlterar');
@@ -64,6 +64,53 @@ function main() {
     ckbEmail.addEventListener('change', function (event) { 
         eventoChangeCkbEmailAlterar(event)
     });
+}
+
+async function getAluno() {
+    
+    try {
+        
+        const resposta = fetch('http://localhost:3333/students/me', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        });
+
+        const dadosAluno = (await resposta).json();
+
+        return dadosAluno;
+
+
+    } catch(erro) {
+        console.error(erro);
+    }
+
+    /* fetch('http://localhost:3333/students/me', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+    })
+        .then(response => {
+            if (!response)
+                throw new Error(`HTTP error! status: ${response.status}`);
+
+                return response.json();
+        })
+        .then(dadosAluno => {
+            dados = dadosAluno;
+        })
+        .catch(erro => {
+            console.error('Erro ao processar a resposta: ', erro);
+        }) */
+}
+
+async function main() {
+    
+    adicionarEventos();
+    const dadosAluno = await getAluno();
+
 }
 
 

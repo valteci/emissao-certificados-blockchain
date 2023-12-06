@@ -39,22 +39,23 @@ function signin(evento) {
             return response.json();
         })
         .then(jwt => {
-            access_token = jwt.access_token;
+            localStorage.setItem('access_token', jwt.access_token);
+            window.location.href = '../aluno/aluno.html';
 
-            return fetch('http://localhost:3333/students/me', {
+            /* return fetch('http://localhost:3333/students/me', {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${access_token}`
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
                 }
-            });
-        }).then(response => {
+            }); */
+        })/* .then(response => {
             if (!response)
                 throw new Error(`HTTP error! status: ${response.status}`);
             
             return response.json();
         }).then(userData => {
             console.log('mensagem do servidor: ', userData);
-        })
+        }) */
         .catch(error => {
             console.error('Erro ao processar a resposta: ', error);
         });

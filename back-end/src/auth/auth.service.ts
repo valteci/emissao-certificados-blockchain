@@ -42,7 +42,7 @@ export class AuthService {
                 'Senha incorreta!'
             );
         
-        return this.signToken(user.matricula);
+        return this.signToken(user.email);
     }
 
     async signup(dto: AuthDtoSingup) {
@@ -62,7 +62,7 @@ export class AuthService {
                 },
             })
             
-            return this.signToken(user.matricula);
+            return this.signToken(user.email);
             
         } catch(error) {
             if (error instanceof PrismaClientKnownRequestError)
@@ -76,11 +76,11 @@ export class AuthService {
     }
 
     async signToken(
-        matricula: string,        
+        email: string,        
     ): Promise<{access_token: string}> {
 
         const payload = {
-            sub: matricula,
+            sub: email,
         }
 
         const token = await this.jwt.signAsync(
