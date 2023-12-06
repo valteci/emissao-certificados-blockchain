@@ -64,6 +64,11 @@ function adicionarEventos() {
     ckbEmail.addEventListener('change', function (event) { 
         eventoChangeCkbEmailAlterar(event)
     });
+
+
+    const btnAlterar = document.getElementById('btnAlterar');
+
+    btnAlterar.addEventListener('click', alterarDados);
 }
 
 async function getAluno() {
@@ -106,10 +111,76 @@ async function getAluno() {
         }) */
 }
 
+async function alterarDados() {
+    
+    const dadosAlterados = {};
+
+    const nome = document.getElementById('inputNomeAlterar');
+    const cpf = document.getElementById('inputCPFAlterar');
+    const data = document.getElementById('inputDataNascimentoAlterar');
+    const enderecoEth = document.getElementById('inputEnderecoEthereum');
+    const email = document.getElementById('inputEmailAlterar');
+
+    if (! nome.disabled)
+        dadosAlterados.nome = nome.value;
+
+    if (! cpf.disabled)
+        dadosAlterados.cpf = cpf.value;
+
+    if (! data.disabled)
+        dadosAlterados.data = data.value;
+
+    if (! enderecoEth.disabled)
+        dadosAlterados.enderecoEth = enderecoEth.value;
+
+    if (! email.disabled)
+        dadosAlterados.email = email.value;
+
+    try {
+
+        const resposta = await fetch('http://localhost:3333/students/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            },
+            body: JSON.stringify(dadosAlterados)
+        });
+
+        alert("Dados Alterado Com Sucesso!");
+        location.reload();
+        
+
+    } catch(erro) {
+        console.error(erro);
+    }
+}
+
+function mostrarDadosAluno(dadosAluno) {
+        
+    const primeiroNome = dadosAluno.nome.split(' ')[0];
+    const dataFormatada = new Date(dadosAluno.dataNascimento);
+
+    const sidebarNome = document.getElementById('nome-sidebar');
+    const txtNomeCompleto = document.getElementById('inputNomeAlterar');
+    const txtCpf = document.getElementById('inputCPFAlterar');
+    const txtDataNascimento = document.getElementById('inputDataNascimentoAlterar');
+    const txtEnderecoEth = document.getElementById('inputEnderecoEthereum');
+    const txtEmail = document.getElementById('inputEmailAlterar');
+
+    sidebarNome.textContent = primeiroNome;
+    txtNomeCompleto.value = dadosAluno.nome;
+    txtCpf.value = dadosAluno.cpf;
+    txtDataNascimento.value = dataFormatada.toISOString().split('T')[0];
+    txtEnderecoEth.value = dadosAluno.endereco_eth;
+    txtEmail.value = dadosAluno.email;
+}
+
 async function main() {
     
     adicionarEventos();
     const dadosAluno = await getAluno();
+    mostrarDadosAluno(dadosAluno);
 
 }
 
