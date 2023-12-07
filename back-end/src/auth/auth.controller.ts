@@ -24,8 +24,8 @@ export class AuthController {
         return this.service.signinInstitucional(dto);
     }
 
-    @Post('signupInstitucional')
+    /* @Post('signupInstitucional')
     signupInstitucional(@Body() dto: AuthDtoSignin) {
         return this.service.signupInstitucional(dto);
-    }
+    } */
 }

@@ -4,6 +4,7 @@ import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { PrismaService } from "src/prisma/prisma.service";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { parseUnits } from "alchemy-sdk/dist/src/api/utils";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(
@@ -20,11 +21,22 @@ export class JwtStrategy extends PassportStrategy(
 
     async validate(payload: any) {
         
-        const dadosUsuario = await this.prisma.student.findUnique({
-            where: {
-                email: payload.sub
-            }
-        })
+        let dadosUsuario = null;
+
+        if (payload.origem === 'estudante') {
+            dadosUsuario = await this.prisma.student.findUnique({
+                where: {
+                    email: payload.sub
+                }
+            })
+        }
+        else if (payload.origem === 'institucional') {
+            dadosUsuario = await this.prisma.loginInstitucional.findUnique({
+                where: {
+                    email: payload.sub
+                }
+            })
+        }
 
         delete dadosUsuario.hashSenha;
         

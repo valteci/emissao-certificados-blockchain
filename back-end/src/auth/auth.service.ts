@@ -30,7 +30,7 @@ export class AuthService {
                 },
             })
             
-            return this.signToken(user.email);
+            return this.signToken(user.email, 'institucional');
             
         } catch(error) {
             if (error instanceof PrismaClientKnownRequestError)
@@ -66,7 +66,7 @@ export class AuthService {
                 'Senha incorreta!'
             );
         
-        return this.signToken(user.email);
+        return this.signToken(user.email, 'institucional');
     }
     
     async signin(dto: AuthDtoSignin) {
@@ -93,7 +93,7 @@ export class AuthService {
                 'Senha incorreta!'
             );
         
-        return this.signToken(user.email);
+        return this.signToken(user.email, 'estudante');
     }
 
     async signup(dto: AuthDtoSingup) {
@@ -113,7 +113,7 @@ export class AuthService {
                 },
             })
             
-            return this.signToken(user.email);
+            return this.signToken(user.email, 'estudante');
             
         } catch(error) {
             if (error instanceof PrismaClientKnownRequestError)
@@ -127,11 +127,13 @@ export class AuthService {
     }
 
     async signToken(
-        email: string,        
+        email: string,
+        origem: string,
     ): Promise<{access_token: string}> {
 
         const payload = {
             sub: email,
+            origem: origem,
         }
 
         const token = await this.jwt.signAsync(

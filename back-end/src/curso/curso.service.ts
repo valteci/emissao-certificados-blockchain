@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CursoDtoCreate } from './dto';
 
 @Injectable({})
 export class CursoService {
@@ -16,6 +17,10 @@ export class CursoService {
             "Desenvolvimento Web": 3,
             "Arduino": 4
         }
+    }
+
+    async createCurso(user: any, dto: CursoDtoCreate) {
+        
     }
 
 }
