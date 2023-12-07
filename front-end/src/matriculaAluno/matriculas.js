@@ -68,7 +68,6 @@ async function carregarCursos() {
 
 
 function enviarFormulario(event) {
-    console.log('esta funcionando!');
     event.preventDefault();
 
     const nome = document.getElementById('inputNome').value;

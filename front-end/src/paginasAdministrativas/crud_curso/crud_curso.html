@@ -93,7 +93,7 @@
         <!-- container cadastrar -->
         <div class="container" id="cadastrar">
           <div class="container mt-5 p-3">
-            <form id="fomularioCadastrarCurso">
+            <form id="formularioCadastrarCurso">
               <div class="container form-cadastrar p-3" >
                 <div class="mb-3">
                     <label for="inputIdCursoCadastrar" class="form-label">C&oacute;digo Do Curso</label>
@@ -122,7 +122,7 @@
 
           <!-- constular por id-->
           <div class="container mt-5 p-3">
-            <form class="row g-2">
+            <form class="row g-2" id="formularioConsultarCurso">
               <div class="col-auto">
                 <input type="text" readonly class="form-control-plaintext" id="labelCodigoCursoConsultar" value="C&oacute;digo Do Curso">
               </div>
@@ -137,15 +137,14 @@
           
           <div class="container mt-4 p-3">
             <div class="text-end">
-              <button class="btn btn-primary">Buscar Todos Os Cursos</button>
+              <button class="btn btn-primary" id="btnBuscarTodosCursos">Buscar Todos Os Cursos</button>
             </div>
           </div>
 
           <div class="container mt-1 p-3 text-center" id="tabelaAluno">
             <h1>RESULTADO DA BUSCA</h1>
-            <table class="table">
-              <thead>
-                <th scope="col">#</th>
+            <table class="table" id="tabelaCursos">
+              <thead>                
                 <th scope="col">C&oacute;digo</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Carga-Hor&aacute;ria</th>

@@ -37,7 +37,6 @@ function signin(evento) {
             return response.json();
         })
         .then(jwt => {
-            console.log(jwt.access_token);
             localStorage.setItem('access_token', jwt.access_token);
             window.location.href = '../paginasAdministrativas/painel/painel.html';
 

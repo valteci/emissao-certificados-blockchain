@@ -11,16 +11,14 @@ export class CursoController {
     }
 
     @Get()
-    getCursos() {
-        return this.cursos.getCursos();
-        
+    getTodosCursos() {
+        return this.cursos.getTodosCursos();
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Post("create")
     createCurso(@Req() req: Request) {
-        return req.user;
-        //return this.cursos.createCurso(req.user, req.body);
+        return this.cursos.createCurso(req.user, req.body);
     }
 
 }
