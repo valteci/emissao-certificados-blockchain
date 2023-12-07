@@ -20,7 +20,7 @@ model Student {
   endereco_eth String @unique
 
   email String @unique
-  hashSenha String      
+  hashSenha String
 
   certificados Certificado[]
   turmas Turma[]
@@ -56,9 +56,12 @@ model Turma {
 
   curso Curso @relation(fields: [idCurso], references: [id])
   idCurso Int
-
 }
 
+model loginInstitucional {
+  email String @id
+  hashSenha String
+}
 
 
 
