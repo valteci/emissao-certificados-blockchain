@@ -181,6 +181,7 @@ async function deletarCurso(evento) {
         if (!resposta.ok) {
             const erro = await resposta.text();
             alert('Erro: ' + JSON.parse(erro).message);
+            throw erro;
         }
 
         alert("Curso Deletado Com Sucesso!");
@@ -188,6 +189,65 @@ async function deletarCurso(evento) {
     } catch(erro) {
         console.error(erro);
     }
+}
+
+async function atualizarCurso() {
+
+    const dadosAlterados = {};
+
+    const codigoAlvo = document.getElementById("inputCodigoCursoAlvoAlterar").value;
+
+    dadosAlterados.codigoCursoAlvo = Number(codigoAlvo);
+
+    const novoCodigo = document.getElementById("inputCodigoCursoAlterar");
+    const novoNome = document.getElementById("inputNomeCursoAlterar");
+    const novaCargaHoraria = document.getElementById("inputCargaHorariaCursoAlterar");
+    const novaDescricao = document.getElementById("textAreaDescricaoCursoAlterar");
+
+    if ((! novoCodigo.disabled) && (Number(novoCodigo.value) > 0))
+        dadosAlterados.novoCodigoCurso = Number(novoCodigo.value);
+
+    if ((! novoNome.disabled) && (novoNome.value !== ''))
+        dadosAlterados.novoNome = novoNome.value;
+
+    if ((! novaCargaHoraria.disabled) && (Number(novaCargaHoraria.value) > 0))
+        dadosAlterados.novaCargaHoraria = Number(novaCargaHoraria.value);
+
+    if ((! novaDescricao.disabled) && (novaDescricao.value !== ''))
+        dadosAlterados.novaDescricao = novaDescricao.value;
+    
+
+    console.log(dadosAlterados);
+    if (Object.keys(dadosAlterados).length === 1) {
+        alert('Preencha Os Dados Que Deseja Alterar!')
+        return;
+    }
+    
+    
+
+    try {
+
+        const resposta = await fetch('http://localhost:3333/curso/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            },
+            body: JSON.stringify(dadosAlterados)
+        });
+
+        if (!resposta.ok) {
+            const erro = await resposta.text();
+            alert('Erro: ' + JSON.parse(erro).message);
+            throw erro;
+        }
+
+        alert("Dados Alterado Com Sucesso!");
+
+    } catch(erro) {
+        console.error(erro);
+    }
+
 }
 
 
@@ -203,6 +263,7 @@ function main() {
     const formularioDeletar = document.getElementById('formularioDeletar');
 
     const btnBuscarTodosCursos = document.getElementById('btnBuscarTodosCursos');
+    const btnAlterarCurso = document.getElementById('btnAlterarCurso');
 
     formularioCadastrar.addEventListener('submit', cadastrarCurso);
     formularioConsultarCurso.addEventListener('submit', getCurso);
@@ -210,6 +271,7 @@ function main() {
 
 
     btnBuscarTodosCursos.addEventListener('click', getTodosCursos);
+    btnAlterarCurso.addEventListener('click', atualizarCurso);
     
 
     ckbCodigo.addEventListener('change', function (event) { 

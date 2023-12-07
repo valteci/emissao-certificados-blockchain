@@ -97,9 +97,9 @@ export class CursoService {
 
         } catch(erro) {
             if (erro instanceof PrismaClientKnownRequestError)
-                if (erro.code === 'P2002')
+                if (erro.code === 'P2025')
                     throw new ForbiddenException(
-                        'Curso Não Existe!'
+                        'Curso Não Cadastrado!'
                     );
 
             throw erro;
@@ -149,10 +149,11 @@ export class CursoService {
 
         } catch(erro) {
             if (erro instanceof PrismaClientKnownRequestError)
-                if (erro.code === 'P2002')
+                if (erro.code === 'P2025')
                     throw new ForbiddenException(
-                        'Curso Não Existe!'
+                        'Curso Não Cadastrado!'
                     );
+                
 
             throw erro;
         }
