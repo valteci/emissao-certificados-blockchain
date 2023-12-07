@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CursoDtoCreate } from './dto';
+import { CursoDtoCreate, CursoDtoUpdate } from './dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable({})
@@ -106,4 +106,57 @@ export class CursoService {
         }
 
     }
+
+    async updateCurso(user: any, dto: CursoDtoUpdate) {
+        try {
+
+            const dadosUsuario = await this.prisma.loginInstitucional.findUnique({
+                where: {
+                    email: user.email
+                }
+            })
+    
+            if (!dadosUsuario)
+                throw new UnauthorizedException('Acesso não autorizado');
+
+            let dadosAtualizar = {};
+
+            if (dto.novoCodigoCurso)
+                dadosAtualizar['id'] = dto.novoCodigoCurso;
+            if (dto.novoNome)
+                dadosAtualizar['nome'] = dto.novoNome;
+            if (dto.novaCargaHoraria)
+                dadosAtualizar['cargaHoraria'] = dto.novaCargaHoraria;
+            if (dto.novaDescricao)
+                dadosAtualizar['descricao'] = dto.novaDescricao;
+
+            console.log(dadosAtualizar);
+
+            const curso = await this.prisma.curso.update({
+                where: {
+                    id: dto.codigoCursoAlvo
+                },
+
+                data: dadosAtualizar
+            })
+
+            if (!curso) {            
+                throw new ForbiddenException(
+                    'Curso Não Cadastrado'
+                );
+            }
+
+
+        } catch(erro) {
+            if (erro instanceof PrismaClientKnownRequestError)
+                if (erro.code === 'P2002')
+                    throw new ForbiddenException(
+                        'Curso Não Existe!'
+                    );
+
+            throw erro;
+        }
+    }
 }
+
+

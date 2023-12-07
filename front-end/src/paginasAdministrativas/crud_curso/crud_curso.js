@@ -75,8 +75,12 @@ function cadastrarCurso(evento) {
         
     })
         .then(response => {
-            if (!response.ok)
+            if (!response.ok) {
+                response.text().then((erro)=>{
+                    alert('Erro: ' + JSON.parse(erro).message);
+                })
                 throw new Error(`HTTP error! status: ${response.status}`);
+            }
             
             alert('Curso Criado Com Sucesso!');
             

@@ -27,15 +27,20 @@ export class CursoDtoCreate {
 
 
 export class CursoDtoUpdate {
-    @IsInt()    
-    codigoCurso: number;
+    
+    @IsInt()
+    @IsNotEmpty()
+    codigoCursoAlvo: number
+    
+    @IsInt()
+    novoCodigoCurso: number;
 
     @IsString()
-    nome: string
+    novoNome: string
 
     @IsInt()    
-    cargaHoraria: number;
+    novaCargaHoraria: number;
 
     @IsString()    
-    descricao: string;
+    novaDescricao: string;
 }

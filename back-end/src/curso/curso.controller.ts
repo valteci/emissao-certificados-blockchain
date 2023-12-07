@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Param, ParseIntPipe, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { CursoService } from './curso.service';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
@@ -31,6 +31,13 @@ export class CursoController {
     @Delete("/:id")
     deleteCurso(@Req() req: Request, @Param('id', ParseIntPipe) id : number) {
         return this.cursos.deleteCurso(req.user, id);
+    }
+
+    @UseGuards(AuthGuard('jwt'))
+    @Put("/update")
+    updateCurso(@Req() req: Request) {
+
+        return this.cursos.updateCurso(req.user, req.body);
     }
 
 }
