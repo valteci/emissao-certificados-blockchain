@@ -10,6 +10,24 @@ export class CursoService {
         
     }
 
+    async getCurso(id: number) {
+        const curso = await this.prisma.curso.findUnique({
+            where: {
+                id: id
+            }
+        });
+        
+
+        if (!curso) {            
+            throw new ForbiddenException(
+                'Curso Não Cadastrado'
+            );
+        }
+
+        return curso;
+
+    }
+
     async getTodosCursos() {
 
         const cursos = await this.prisma.curso.findMany();
@@ -53,4 +71,39 @@ export class CursoService {
     
     }
 
+    async deleteCurso(user: any, id: number) {
+        try {
+            
+            const dadosUsuario = await this.prisma.loginInstitucional.findUnique({
+                where: {
+                    email: user.email
+                }
+            })
+    
+            if (!dadosUsuario)
+                throw new UnauthorizedException('Acesso não autorizado');
+    
+            
+            const curso = await this.prisma.curso.delete({
+                where: {
+                    id: id
+                }
+            });
+                
+            if (!curso)
+                throw new ForbiddenException(
+                    'Curso Não Cadastrado'
+                );
+
+        } catch(erro) {
+            if (erro instanceof PrismaClientKnownRequestError)
+                if (erro.code === 'P2002')
+                    throw new ForbiddenException(
+                        'Curso Não Existe!'
+                    );
+
+            throw erro;
+        }
+
+    }
 }

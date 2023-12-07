@@ -96,40 +96,94 @@ function limparTabela(tabela) {
                         </thead>`
 }
 
+function mostrarDadosTabela(dados) {
+
+    const tabela = document.getElementById('tabelaCursos');
+
+    limparTabela(tabela);
+
+    for (const iterator of dados) {
+        
+        const newRow = tabelaCursos.insertRow();
+
+        const cellId = newRow.insertCell();
+        cellId.appendChild(document.createTextNode(iterator.id));
+
+        const cellNome = newRow.insertCell();
+        cellNome.appendChild(document.createTextNode(iterator.nome));
+
+        const cellCargaHoraria = newRow.insertCell();
+        cellCargaHoraria.appendChild(document.createTextNode(iterator.cargaHoraria));
+
+        const cellDescricao = newRow.insertCell();
+        cellDescricao.appendChild(document.createTextNode(iterator.descricao));
+    }
+}
+
 async function getTodosCursos() {
     
     try {
 
         const resposta = await fetch('http://localhost:3333/curso');
+        const cursos = await resposta.json();        
 
-        const cursos = await resposta.json()
-
-        const tabela = document.getElementById('tabelaCursos');
-        
-        limparTabela(tabela);
-
-        for (const iterator of cursos) {
-            
-            const newRow = tabelaCursos.insertRow();
-
-            const cellId = newRow.insertCell();
-            cellId.appendChild(document.createTextNode(iterator.id));
-
-            const cellNome = newRow.insertCell();
-            cellNome.appendChild(document.createTextNode(iterator.nome));
-
-            const cellCargaHoraria = newRow.insertCell();
-            cellCargaHoraria.appendChild(document.createTextNode(iterator.cargaHoraria));
-
-            const cellDescricao = newRow.insertCell();
-            cellDescricao.appendChild(document.createTextNode(iterator.descricao));
-        }
-        
+        mostrarDadosTabela(cursos);                        
 
     } catch(erro) {
         console.error(erro);
     }
 
+}
+
+async function getCurso(evento) {
+    evento.preventDefault();
+
+    try {
+        const codigo = document.getElementById('inputCodigoCursoConsultar').value;
+        const resposta = await fetch(`http://localhost:3333/curso/${codigo}`);
+
+        if (!resposta.ok) {
+            const erro = await resposta.text();
+            alert('Erro: ' + JSON.parse(erro).message);
+        }
+    
+        const curso = await resposta.json()
+        const dados = [curso];
+    
+        mostrarDadosTabela(dados);
+
+
+    } catch(erro) {
+        console.error(erro);
+    }
+
+}
+
+async function deletarCurso(evento) {
+    evento.preventDefault();
+
+    try {
+
+        const codigo = document.getElementById('inputCodigoCursoRemover').value;
+
+        const resposta = await fetch(`http://localhost:3333/curso/${codigo}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            },            
+        });
+
+        if (!resposta.ok) {
+            const erro = await resposta.text();
+            alert('Erro: ' + JSON.parse(erro).message);
+        }
+
+        alert("Curso Deletado Com Sucesso!");
+
+    } catch(erro) {
+        console.error(erro);
+    }
 }
 
 
@@ -141,9 +195,16 @@ function main() {
     const ckbDescricao = document.getElementById('ckbDescricaoCursoAlterar');
     
     const formularioCadastrar = document.getElementById('formularioCadastrarCurso');
+    const formularioConsultarCurso = document.getElementById('formularioConsultarCurso');
+    const formularioDeletar = document.getElementById('formularioDeletar');
+
     const btnBuscarTodosCursos = document.getElementById('btnBuscarTodosCursos');
 
     formularioCadastrar.addEventListener('submit', cadastrarCurso);
+    formularioConsultarCurso.addEventListener('submit', getCurso);
+    formularioDeletar.addEventListener('submit', deletarCurso);
+
+
     btnBuscarTodosCursos.addEventListener('click', getTodosCursos);
     
 
