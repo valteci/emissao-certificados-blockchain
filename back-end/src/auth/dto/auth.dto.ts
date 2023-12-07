@@ -6,7 +6,6 @@ import {
 
 } from "class-validator";
 
-
 export class AuthDtoSignin {
     @IsEmail()
     @IsNotEmpty()

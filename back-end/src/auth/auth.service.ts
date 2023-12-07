@@ -17,6 +17,57 @@ export class AuthService {
 
         
     }
+
+    async signupInstitucional(dto: AuthDtoSignin) {
+        const hash = await argon.hash(dto.password);
+        
+        try {
+            
+            const user = await this.prisma.loginInstitucional.create({
+                data: {
+                    email: dto.email,
+                    hashSenha: hash,
+                },
+            })
+            
+            return this.signToken(user.email);
+            
+        } catch(error) {
+            if (error instanceof PrismaClientKnownRequestError)
+                if (error.code === 'P2002')
+                    throw new ForbiddenException(
+                        'um dos dados ja existem no banco de dados!'
+                    );
+
+            throw error;
+        }
+    }
+
+    async signinInstitucional(dto: AuthDtoSignin) {
+        const user = 
+            await this.prisma.loginInstitucional.findUnique({
+                where: {
+                    email: dto.email,
+                },
+            });
+        
+        if (!user) 
+            throw new ForbiddenException(
+                'Estudante nao cadastrado'
+            );
+
+        const pwMatches = 
+            await argon.verify(
+                user.hashSenha, dto.password
+            );
+
+        if (!pwMatches)
+            throw new ForbiddenException(
+                'Senha incorreta!'
+            );
+        
+        return this.signToken(user.email);
+    }
     
     async signin(dto: AuthDtoSignin) {
         

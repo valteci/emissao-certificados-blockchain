@@ -11,12 +11,21 @@ export class AuthController {
 
     @Post('signup')
     signup(@Body() dto: AuthDtoSingup) {
-        console.log(dto);
         return this.service.signup(dto);
     }
 
     @Post('signin')
     signin(@Body() dto: AuthDtoSignin) {
         return this.service.signin(dto);
+    }
+
+    @Post('signinInstitucional')
+    signinInstitucional(@Body() dto: AuthDtoSignin) {
+        return this.service.signinInstitucional(dto);
+    }
+
+    @Post('signupInstitucional')
+    signupInstitucional(@Body() dto: AuthDtoSignin) {
+        return this.service.signupInstitucional(dto);
     }
 }
