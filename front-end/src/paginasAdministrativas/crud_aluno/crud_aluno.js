@@ -147,7 +147,85 @@ async function getAluno(evento) {
         mostrarDadosTabela([aluno]);
 
     } catch(erro) {
+        console.log(erro);
+    }
+}
 
+async function removerAluno(evento) {
+    evento.preventDefault();
+
+    try {
+
+        const matricula = document.getElementById('inputMatriculaRemover').value;
+
+        const resposta = await fetch(`http://localhost:3333/students/${matricula}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            },            
+        });
+
+        if (!resposta.ok) {
+            const erro = await resposta.text();
+            alert('Erro: ' + JSON.parse(erro).message);
+            throw erro;
+        }
+
+        alert("Aluno Deletado Com Sucesso!");
+
+    } catch(erro) {
+        console.error(erro);
+    }
+}
+
+async function alterarAluno() {
+    
+    const dadosAlterados = {};
+
+    const matriculaAlvo = document.getElementById('inputMatriculaAlterar').value;
+    const nome = document.getElementById('inputNomeAlterar');
+    const cpf = document.getElementById('inputCPFAlterar');
+    const data = document.getElementById('inputDataNascimentoAlterar');
+    const enderecoEth = document.getElementById('inputEnderecoEthereum');
+    const email = document.getElementById('inputEmailAlterar');
+    const senha = document.getElementById('inputAlterarSenha');
+
+    dadosAlterados.matriculaAlvo = matriculaAlvo;
+
+    if ((! nome.disabled) && (nome.value !== ''))
+        dadosAlterados.novoNome = nome.value;
+
+    if ((! cpf.disabled) && (cpf.value !== ''))
+        dadosAlterados.novoCpf = cpf.value;
+
+    if ((! data.disabled) && (data.value !== ''))
+        dadosAlterados.novaDataNascimento = data.value + 'T00:00:00Z';
+
+    if ((! enderecoEth.disabled) && (enderecoEth.value !== ''))
+        dadosAlterados.novoEndereco_eth = enderecoEth.value;
+
+    if ((! email.disabled) && (email.value !== ''))
+        dadosAlterados.novoEmail = email.value;
+
+    if ((! senha.disabled) && (senha.value !== ''))
+        dadosAlterados.novaSenha = senha.value;
+
+    try {
+
+        const resposta = await fetch('http://localhost:3333/students/updateInstitucional', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            },
+            body: JSON.stringify(dadosAlterados)
+        });
+
+        alert("Dados Alterado Com Sucesso!");
+
+    } catch(erro) {
+        console.error(erro);
     }
 }
 
@@ -161,12 +239,16 @@ function main() {
     const ckbSenha = document.getElementById('ckbSenhaAlterar');
 
     const btnPegarTodosAluno = document.getElementById('btnPegarTodosAluno');
+    const btnAlterarAluno = document.getElementById('btnAlterarAluno');
 
     const formGetAlunoId = document.getElementById('formularioGetAlunoId');
+    const formRemoverAluno = document.getElementById('fomularioRemoverAluno');
 
     btnPegarTodosAluno.addEventListener('click', getTodosAlunos);
+    btnAlterarAluno.addEventListener('click', alterarAluno)
 
     formGetAlunoId.addEventListener('submit', getAluno);
+    formRemoverAluno.addEventListener('submit', removerAluno);
 
     ckbNome.addEventListener('change', function (event) { 
         eventoChangeCkbNomeAlterar(event)

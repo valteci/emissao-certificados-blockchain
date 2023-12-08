@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseBoolPipe } from '@nestjs/common';
 import { CertificadoService } from './certificado.service';
 
 
@@ -17,6 +17,11 @@ export class CertificadoController {
     @Get('verify/:contractAddress')
     VerificarCertificado(@Param('contractAddress') contractAddress : string) {
         return this.service.verificarCertificado(contractAddress);
+    }
+
+    @Post('/emitir/blockchain=:valor')
+    test(@Param('valor', ParseBoolPipe) val: boolean) {
+        console.log(val);
     }
 
     @Get('test')

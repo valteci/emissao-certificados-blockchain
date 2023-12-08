@@ -36,4 +36,9 @@ export class CertificadoService {
 
     }
 
+    async emitirCertificado(user: any, dto: any, emitirBlockchain: boolean) {
+
+
+    }
+
 }
