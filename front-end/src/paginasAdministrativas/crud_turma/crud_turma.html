@@ -147,7 +147,7 @@
           
           <div class="container mt-4 p-3">
             <div class="text-end">
-              <button onclick="buscarTodos()" class="btn btn-primary">Buscar Todas As Turmas</button>
+              <button id="btnBuscasTodos" class="btn btn-primary">Buscar Todas As Turmas</button>
             </div>
           </div>
 
@@ -155,8 +155,6 @@
             <h1>RESULTADO DA BUSCA</h1>
             <table class="table" id="tabelaResultado">
               <thead>                
-                <th scope="col">#</th>
-                
                 <!-- <th scope="col">C&oacute;digo Da Turma</th>
                 <th scope="col">Data Do In&iacute;cio</th>
                 <th scope="col">Data Do Fim</th>
@@ -233,7 +231,7 @@
             </form>
 
             <div class="container mt-3">
-              <button class="btn btn-primary w-100">Alterar</button>
+              <button id="btnAlterarTurma" class="btn btn-primary w-100">Alterar</button>
             </div>
           </div>
         </div>
@@ -241,7 +239,7 @@
         <!-- container remover -->
         <div class="container" id="remover">
           <div class="container mt-5 p-3">
-            <form class="row g-2">
+            <form class="row g-2" id="formularioRemoverTurma">
               <div class="p-3 form-remover">
                 <div class="mb-3">
                   <label for="inputCodigoTurmaRemover" class="form-label">C&oacute;digo Da Turma</label>
@@ -249,19 +247,19 @@
                 </div>
               </div>
               <div class="container mt-3">
-                <button class="btn btn-primary w-100">Remover</button>
+                <button class="btn btn-primary w-100" type="submit">Remover</button>
               </div>
             </form>
           </div>
         </div>
 
-        <!-- container remover -->
+        <!-- adicionar aluno -->
         <div class="container" id="adicionarAluno">
           <div class="container mt-5 p-3">
             <div class="container mb-2">
               <h1>Inisira Um Aluno Em Uma Turma Espec&iacute;fica</h1>
             </div>
-            <form class="row g-2">
+            <form class="row g-2" id="formularioAdicionarAlunoTurma">
               <div class="p-3 form-adicionar-aluno">
                 <div class="mb-3">
                   <label for="inputCodigoTurmaAdicionarAluno" class="form-label">C&oacute;digo Da Turma</label>
@@ -273,18 +271,19 @@
                 </div>
               </div>
               <div class="container mt-3">
-                <button class="btn btn-primary w-100">Adicionar</button>
+                <button class="btn btn-primary w-100" type="submit">Adicionar</button>
               </div>
             </form>
           </div>
         </div>
 
+        <!-- remover aluno -->
         <div class="container" id="removerAluno">
           <div class="container mt-5 p-3">
             <div class="container mb-2">
               <h1>Remova Um Aluno De Uma Turma Espec&iacute;fica</h1>
             </div>
-            <form class="row g-2">
+            <form class="row g-2" id="formularioRemoverAluno">
               <div class="p-3 form-remover-aluno">
                 <div class="mb-3">
                   <label for="inputCodigoTurmaRemoverAluno" class="form-label">C&oacute;digo Da Turma</label>

@@ -74,7 +74,7 @@ function inserirColunasDeTurma() {
     colunaDataFim.textContent = 'Data Do Fim';
     colunaNomeCurso.textContent = 'Nome Do Curso';
 
-    const cabecalho = tabela.querySelector('thead tr');
+    const cabecalho = tabela.querySelector('thead');
 
     cabecalho.appendChild(colunaCodigoTurma);
     cabecalho.appendChild(colunaDataInicio);
@@ -109,7 +109,7 @@ function inserirColunasDeAluno() {
     colunaEnderecoEthereum.textContent = 'Endereço Ethereum';
     colunaEmail.textContent = 'Email';
 
-    const cabecalho = tabela.querySelector('thead tr');
+    const cabecalho = tabela.querySelector('thead');
 
     cabecalho.appendChild(colunaNome);
     cabecalho.appendChild(colunaCPF);
@@ -129,13 +129,51 @@ function limparTabela() {
         linhas.removeChild(linhas.firstChild);
     }
 
-    cabecalho.innerHTML = '<thead><th scope="col">#</th></thead>';
-
-
+    cabecalho.innerHTML = '<thead></thead>';
 }
 
-function buscarTodos() {
-    inserirColunasDeTurma();
+
+async function buscarTodos() {
+    try {
+        inserirColunasDeTurma();
+    
+        const resposta = await fetch('http://localhost:3333/turma');
+    
+        if (!resposta.ok) {
+            const res_erro = await resposta.text();
+            const erro = JSON.parse(res_erro).message;
+            alert('Erro: ' + erro);
+            throw erro;
+        }
+
+        const dados = await resposta.json();
+
+        mostrarDadosTabelaCursos(dados);
+        
+    } catch(erro) {        
+        console.error(erro);
+    }
+}
+
+function mostrarDadosTabelaCursos(dados) {
+    const tabela = document.getElementById('tabelaResultado');
+
+    for (const iterator of dados) {
+        
+        const newRow = tabela.insertRow();
+
+        const cellId = newRow.insertCell();
+        cellId.appendChild(document.createTextNode(iterator.id));
+
+        const cellDataInicio = newRow.insertCell();
+        cellDataInicio.appendChild(document.createTextNode(iterator.dataInicio.split('T')[0]));
+
+        const cellDataFim = newRow.insertCell();
+        cellDataFim.appendChild(document.createTextNode(iterator.dataFim.split('T')[0]));
+
+        const cellCursoNome = newRow.insertCell();
+        cellCursoNome.appendChild(document.createTextNode(iterator.curso.nome));
+    }
 }
 
 function buscarAlunosTurma(evt) {
@@ -170,16 +208,210 @@ function eventoChangeCkbCodigoCursoAlterar(event) {
 }
 
 
+function cadastrarTurma(evento) {
+    evento.preventDefault();
 
-function main() {
-    document.getElementById('formularioTodosAlunosTurma')
-        .addEventListener('submit', buscarAlunosTurma);
+    const codigo = document.getElementById('inputIdTurmaCadastrar').value;
+    const dataInicio = document.getElementById('inputDataInicioTurmaCadastrar').value;
+    const dataFim = document.getElementById('inputDaraFimTurmaCadastrar').value;
+    const codigoCurso = document.getElementById('inputIdCursoTurmaCadastrar').value;
 
+    fetch('http://localhost:3333/turma/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        },
+        body: JSON.stringify({
+            codigoTurma: Number(codigo),
+            dataInicio: dataInicio + 'T00:00:00Z',
+            dataFim: dataFim + 'T00:00:00Z',
+            codigoCurso: Number(codigoCurso),
+        })
+        
+    })
+        .then(response => {
+            if (!response.ok) {
+                response.text().then((erro)=>{
+                    alert('Erro: ' + JSON.parse(erro).message);
+                })
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            alert('Turma Cadastrada Com Sucesso!');
+            
+        })
+        .catch(error => {
+            console.error('Erro ao processar a resposta: ', error);
+        });
+
+}
+
+async function removerTurma(evento) {
+    evento.preventDefault();
+
+    try {
+
+        const codigo = document.getElementById('inputCodigoTurmaRemover').value;
+
+        const resposta = await fetch(`http://localhost:3333/turma/${codigo}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            },            
+        });
+
+        if (!resposta.ok) {
+            const erro = await resposta.text();
+            alert('Erro: ' + JSON.parse(erro).message);
+            throw erro;
+        }
+
+        alert("Turma Deletada Com Sucesso!");
+
+    } catch(erro) {
+        console.error(erro);
+    }
+}
+
+async function alterarTurma() {
+    const dadosAlterados = {};
+
+    const codigoAlvo = document.getElementById("inputCodigoTurmaAlvoAlterar").value;
+
+    dadosAlterados.codigoTurmaAlvo = Number(codigoAlvo);
+
+    const novoCodigo = document.getElementById("inputCodigoTurmaAlterar");
+    const novaDataInicio = document.getElementById("inputDataInicioAlterar");
+    const novaDataFim = document.getElementById("inputDataFimAlterar");
+    const novoCodigoCurso = document.getElementById("inputCodigoCursoAlterar");
+
+    if ((! novoCodigo.disabled) && (Number(novoCodigo.value) > 0))
+        dadosAlterados.novoCodigoTurma = Number(novoCodigo.value);
+
+    if ((! novaDataInicio.disabled) && (novaDataInicio.value !== ''))
+        dadosAlterados.novaDataInicio = novaDataInicio.value + 'T00:00:00.000Z';
+
+    if ((! novaDataFim.disabled) && ((novaDataFim.value) !== ''))
+        dadosAlterados.novaDataFim = novaDataFim.value + 'T00:00:00.000Z';
+
+    if ((! novoCodigoCurso.disabled) && (Number(novoCodigoCurso.value) > 0))
+        dadosAlterados.novoCodigoCurso = Number(novoCodigoCurso.value);
+    
+    
+    if (Object.keys(dadosAlterados).length === 1) {
+        alert('Preencha Os Dados Que Deseja Alterar!')
+        return;
+    }
+    
+    
+    try {
+
+        const resposta = await fetch('http://localhost:3333/turma/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            },
+            body: JSON.stringify(dadosAlterados)
+        });
+
+        if (!resposta.ok) {
+            const erro = await resposta.text();
+            alert('Erro: ' + JSON.parse(erro).message);
+            throw erro;
+        }
+
+        alert("Turma Atualizada Com Sucesso!");
+
+    } catch(erro) {
+        console.error(erro);
+    }
+}
+
+function adicionarAlunoTurma(evento) {
+    evento.preventDefault();
+
+    const codigoTurma = document.getElementById('inputCodigoTurmaAdicionarAluno').value;
+    const matriculaAluno = document.getElementById('inputMatriculaAlunoAdicionarAluno').value;
+
+    fetch(`http://localhost:3333/turma/addStudent/${matriculaAluno}/${codigoTurma}`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                response.text().then((erro)=>{
+                    alert('Erro: ' + JSON.parse(erro).message);
+                })
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            alert('Estudante Adicionado Com Sucesso!');
+            
+        })
+        .catch(error => {
+            console.error('Erro ao processar a resposta: ', error);
+        });
+
+}
+
+function removerAlunoTurma(evento) {
+    evento.preventDefault();
+
+    const codigoTurma = document.getElementById('inputCodigoTurmaRemoverAluno').value;
+    const matriculaAluno = document.getElementById('inputMatriculaAlunoRemoverAluno').value;
+
+    fetch(`http://localhost:3333/turma/removeStudent/${matriculaAluno}/${codigoTurma}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                response.text().then((erro)=>{
+                    alert('Erro: ' + JSON.parse(erro).message);
+                })
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            alert('Estudante Removido Com Sucesso!');
+            
+        })
+        .catch(error => {
+            console.error('Erro ao processar a resposta: ', error);
+        });
+}
+
+function main() {    
     
     const ckbCodigo = document.getElementById('ckbCodigoTurmaAlterar');
     const ckbDataInicio = document.getElementById('ckbDataInicioAlterar');
     const ckbDataFim = document.getElementById('ckbDataFimAlterar');
     const ckbCodigoCurso = document.getElementById('ckbCodigoCursoAlterar');
+
+    const formTodosAlunosTurma = document.getElementById('formularioTodosAlunosTurma');
+    const formCadastrarTurma = document.getElementById('fomularioCadastrarTurma');
+    const formRemoverTurma = document.getElementById('formularioRemoverTurma');
+    const formAdicionarAlunoTurma = document.getElementById('formularioAdicionarAlunoTurma');
+    const forRemoverAluno = document.getElementById('formularioRemoverAluno');
+
+    const btnBuscarTodos = document.getElementById('btnBuscasTodos');
+    const btnAlterarTurma = document.getElementById('btnAlterarTurma');
+
+
+    btnBuscarTodos.addEventListener('click', buscarTodos);
+    btnAlterarTurma.addEventListener('click', alterarTurma);
+
+    formTodosAlunosTurma.addEventListener('submit', buscarAlunosTurma);
+    formCadastrarTurma.addEventListener('submit', cadastrarTurma);
+    formRemoverTurma.addEventListener('submit', removerTurma);
+    formAdicionarAlunoTurma.addEventListener('submit', adicionarAlunoTurma);
+    forRemoverAluno.addEventListener('submit', removerAlunoTurma);
     
 
     ckbCodigo.addEventListener('change', function (event) { 

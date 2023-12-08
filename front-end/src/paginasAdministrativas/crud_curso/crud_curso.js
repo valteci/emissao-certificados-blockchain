@@ -147,14 +147,14 @@ async function getCurso(evento) {
         const resposta = await fetch(`http://localhost:3333/curso/${codigo}`);
 
         if (!resposta.ok) {
-            const erro = await resposta.text();
-            alert('Erro: ' + JSON.parse(erro).message);
+            const res_erro = await resposta.text();
+            const erro = JSON.parse(erro).message;
+            alert('Erro: ' + erro);
+            throw erro;
         }
     
         const curso = await resposta.json()
-        const dados = [curso];
-    
-        mostrarDadosTabela(dados);
+        const dados = [curso];            
 
 
     } catch(erro) {
@@ -216,8 +216,7 @@ async function atualizarCurso() {
     if ((! novaDescricao.disabled) && (novaDescricao.value !== ''))
         dadosAlterados.novaDescricao = novaDescricao.value;
     
-
-    console.log(dadosAlterados);
+    
     if (Object.keys(dadosAlterados).length === 1) {
         alert('Preencha Os Dados Que Deseja Alterar!')
         return;
