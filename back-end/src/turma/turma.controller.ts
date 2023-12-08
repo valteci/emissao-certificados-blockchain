@@ -26,6 +26,12 @@ export class TurmaController {
         return this.turma.getTodasTurmas(); 
     }
 
+    @Get('alunosTurma/:id')
+    getAlunosTurma(@Param('id', ParseIntPipe) id: number) {
+        return this.turma.getAlunosTurma(id);
+    }
+
+
     @UseGuards(AuthGuard('jwt'))
     @Delete('/:id')
     deleteTurma(@Req() req: Request, @Param('id', ParseIntPipe) id : number) {

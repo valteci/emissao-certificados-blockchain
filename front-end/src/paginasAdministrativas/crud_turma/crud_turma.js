@@ -155,6 +155,34 @@ async function buscarTodos() {
     }
 }
 
+function mostrarDadosTabelaAlunos(dados) {
+    const tabela = document.getElementById('tabelaResultado');
+
+    for (const iterator of dados) {
+        
+        const newRow = tabela.insertRow();
+
+        const cellNome = newRow.insertCell();
+        cellNome.appendChild(document.createTextNode(iterator.nome));
+
+        const cellCpf = newRow.insertCell();
+        cellCpf.appendChild(document.createTextNode(iterator.cpf));
+
+        const cellMatricula = newRow.insertCell();
+        cellMatricula.appendChild(document.createTextNode(iterator.matricula));
+
+        const cellDataNascimento = newRow.insertCell();
+        cellDataNascimento.appendChild(document.createTextNode(iterator.dataNascimento.split('T')[0]));
+
+        const cellEnderecoEth = newRow.insertCell();
+        cellEnderecoEth.appendChild(document.createTextNode(iterator.endereco_eth));
+
+        const cellEmail = newRow.insertCell();
+        cellEmail.appendChild(document.createTextNode(iterator.email));
+
+    }
+}
+
 function mostrarDadosTabelaCursos(dados) {
     const tabela = document.getElementById('tabelaResultado');
 
@@ -176,10 +204,32 @@ function mostrarDadosTabelaCursos(dados) {
     }
 }
 
-function buscarAlunosTurma(evt) {
+async function buscarAlunosTurma(evt) {
 
     evt.preventDefault();
-    inserirColunasDeAluno();
+    
+    try {
+        inserirColunasDeAluno();
+        const codigoTurma = document.getElementById('inputCodigoCursoConsultar').value;
+    
+        const resposta = await fetch(`http://localhost:3333/turma/alunosTurma/${codigoTurma}`);
+    
+        if (!resposta.ok) {
+            const res_erro = await resposta.text();
+            const erro = JSON.parse(res_erro).message;
+            alert('Erro: ' + erro);
+            throw erro;
+        }
+
+        const dados = await resposta.json();
+        const alunos = dados.students;
+        
+
+        mostrarDadosTabelaAlunos(alunos);
+        
+    } catch(erro) {        
+        console.error(erro);
+    }
 }
 
 
@@ -398,7 +448,7 @@ function main() {
     const formCadastrarTurma = document.getElementById('fomularioCadastrarTurma');
     const formRemoverTurma = document.getElementById('formularioRemoverTurma');
     const formAdicionarAlunoTurma = document.getElementById('formularioAdicionarAlunoTurma');
-    const forRemoverAluno = document.getElementById('formularioRemoverAluno');
+    const forRemoverAluno = document.getElementById('formularioRemoverAluno');    
 
     const btnBuscarTodos = document.getElementById('btnBuscasTodos');
     const btnAlterarTurma = document.getElementById('btnAlterarTurma');

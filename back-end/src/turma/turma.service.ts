@@ -225,6 +225,27 @@ export class TurmaService {
             throw error;
         }
     }
+
+    async getAlunosTurma(id: number) {
+
+        const alunosDaTurma = await this.prisma.turma.findUnique({
+            where: { id: id },
+            include: {
+                students: { 
+                    select: {
+                        nome: true,
+                        cpf: true,
+                        matricula: true,
+                        dataNascimento: true,
+                        endereco_eth: true,
+                        email: true
+                    }
+                }
+            }
+        });
+
+        return alunosDaTurma;
+    }
 }
 
 
