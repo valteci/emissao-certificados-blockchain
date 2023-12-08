@@ -1,6 +1,3 @@
-let cursos = {
-
-}
 
 function copyPrivateKeyToClipboard() {
     const pk = document.getElementById('chavePrivada');
@@ -49,23 +46,6 @@ function copyAddressToClipboad() {
 }
 
 
-async function carregarCursos() {
-
-    const response = await fetch('http://localhost:3333/curso');
-    const json = await response.json();
-    
-    cursos = json;
-
-    const select = document.getElementById('comboboxCurso');
-
-    Object.keys(cursos).forEach(opcao => {
-        const option = document.createElement('option');
-        option.value = opcao;
-        option.textContent = opcao;
-        select.appendChild(option);
-    })
-}
-
 
 function enviarFormulario(event) {
     event.preventDefault();
@@ -76,12 +56,10 @@ function enviarFormulario(event) {
     const data = document.getElementById('inputDataNascimento').value;
     const senha = document.getElementById('inputSenha').value;
     const enderecoEth = document.getElementById('inputEnderecoEthereum').value;
-    const curso = document.getElementById('comboboxCurso').value;
-            
-    const codigoCurso = cursos[curso];
+   
     const dataCompleta = `${data}T00:00:00Z`;
     const anoAtual = new Date().getFullYear().toString();
-    const matricula = `${cpf}${anoAtual}${codigoCurso}`;
+    const matricula = `${cpf}${anoAtual}`;
     
     fetch('http://localhost:3333/Auth/signup', {
         method: 'POST',
@@ -115,4 +93,3 @@ function enviarFormulario(event) {
 }
 
 document.getElementById('btnEnviarForm').addEventListener('click', enviarFormulario);
-carregarCursos();

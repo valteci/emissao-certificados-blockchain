@@ -148,7 +148,7 @@ async function getCurso(evento) {
 
         if (!resposta.ok) {
             const res_erro = await resposta.text();
-            const erro = JSON.parse(erro).message;
+            const erro = JSON.parse(res_erro).message;
             alert('Erro: ' + erro);
             throw erro;
         }
