@@ -38,7 +38,8 @@ model Curso {
 
 model Certificado {
 
-  endereco_eth String @id
+  id Int @id @default(autoincrement())
+  endereco_eth String
   createdAt DateTime @default(now())
   
   student Student @relation(fields: [studentMatricula], references: [matricula])
