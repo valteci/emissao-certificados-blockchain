@@ -1,4 +1,14 @@
-import { Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Controller,
+    Delete,
+    Get,
+    Param,
+    ParseIntPipe,
+    Post,
+    Put,
+    Req,
+    UseGuards
+} from '@nestjs/common';
+
 import { CursoService } from './curso.service';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';

@@ -1,5 +1,17 @@
-import { Controller, Get, Post, Body, Param, ParseBoolPipe } from '@nestjs/common';
+import { 
+    Controller,
+    Get,
+    Post,
+    Body,
+    Param,
+    ParseBoolPipe,
+    Req,
+    UseGuards
+} from '@nestjs/common';
+
 import { CertificadoService } from './certificado.service';
+import { Request } from 'express';
+import { AuthGuard } from '@nestjs/passport';
 
 
 @Controller('certificado')
@@ -19,9 +31,16 @@ export class CertificadoController {
         return this.service.verificarCertificado(contractAddress);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post('/emitir/blockchain=:valor')
-    test(@Param('valor', ParseBoolPipe) val: boolean) {
-        console.log(val);
+    test(@Req() req: Request, @Param('valor', ParseBoolPipe) emitirEmBlockchain: boolean) {
+
+        this.service.verificarAutorizacao(req.user);
+
+        if (emitirEmBlockchain)
+            return this.service.emitirCertificadoBlockchain(req.body);
+
+        return this.service.emitirCertificadoInstituicao(req.body);
     }
 
     @Get('test')

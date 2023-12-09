@@ -1,10 +1,11 @@
 import {
     IsNotEmpty,
     IsString,
+    IsInt,
     
 } from 'class-validator';
 
-export class certificadoDtoEmitir {
+export class CertificadoDtoEmitir {
     @IsString()
     endereco_eth: string;
 
@@ -13,8 +14,8 @@ export class certificadoDtoEmitir {
     matriculaAluno: string;
 
     @IsNotEmpty()
-    @IsString()
-    idCurso: string;
+    @IsInt()
+    idCurso: number;
 
     @IsString()
     dados: string;

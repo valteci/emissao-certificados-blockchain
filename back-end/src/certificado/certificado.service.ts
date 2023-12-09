@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Network, Alchemy } from 'alchemy-sdk';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { CertificadoDtoEmitir } from './dto';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable({})
 export class CertificadoService {
-    constructor(private config: ConfigService) {
+    constructor(private config: ConfigService, private prisma: PrismaService) {
 
     }
 
@@ -36,9 +39,32 @@ export class CertificadoService {
 
     }
 
-    async emitirCertificado(user: any, dto: any, emitirBlockchain: boolean) {
+    async verificarAutorizacao(user: any) {
+        const dadosUsuario = await this.prisma.loginInstitucional.findUnique({
+            where: {
+                email: user.email
+            }
+        })
+
+        if (!dadosUsuario)
+            throw new UnauthorizedException('Acesso não autorizado');
+    }
+
+    async emitirCertificadoBlockchain(dto: CertificadoDtoEmitir) {
 
 
+    }
+
+    async emitirCertificadoInstituicao(dto: CertificadoDtoEmitir) {
+        
+        await this.prisma.certificado.create({
+            data: {
+                endereco_eth: dto.endereco_eth,
+                dados: dto.dados,
+                studentMatricula: dto.matriculaAluno,
+                idCurso: dto.idCurso
+            }
+        })
     }
 
 }
