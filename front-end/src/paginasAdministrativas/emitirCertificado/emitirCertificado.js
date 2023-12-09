@@ -4,6 +4,11 @@ function opcaoCadastrar() {
 
 function cadastrarCertificado(evento) {
     evento.preventDefault();
+    document.getElementById('informacoesBlockchain').style.display = 'none';
+
+    const loader = document.getElementById('loader');
+    
+    loader.style.display = 'block';
 
     const codigoCurso = document.getElementById('inputIdCursoCadastrar').value;
     const matriculaAluno = document.getElementById('inputMatriculaAlunoCadastrar').value;
@@ -23,7 +28,8 @@ function cadastrarCertificado(evento) {
         })
         
     })
-        .then(response => {
+        .then(response => {            
+            loader.style.display = 'none'
             if (!response.ok) {
                 response.text().then((erro)=>{
                     alert('Erro: ' + JSON.parse(erro).message);
@@ -31,11 +37,29 @@ function cadastrarCertificado(evento) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             
+            
             alert('Certificado Emitido Com Sucesso!');
+
+            if (emitirEmBlockchain) {
+                const elemento = document.getElementById('informacoesBlockchain');
+                elemento.style.display = 'block';
+
+                response.json()
+                    .then(dados => {
+                        const h4 = document.getElementById('enderecoContrato');
+                        h4.textContent = 'Edereço Do Contrato: ' + dados.enderecoContrato;
+
+                        const link = document.getElementById('linkBlockchain');
+                        link.setAttribute('href', dados.url);
+
+                    })
+            }
+
             
         })
         .catch(error => {
             console.error('Erro ao processar a resposta: ', error);
+            loader.style.display = 'none'
         });
 }
 

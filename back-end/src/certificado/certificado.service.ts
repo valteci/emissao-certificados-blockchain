@@ -124,9 +124,6 @@ export class CertificadoService {
         const aluno = await this.prisma.student.findUnique({
           where: {
             matricula: dto.matriculaAluno
-          },
-          select: {
-            endereco_eth: true
           }
         });
       

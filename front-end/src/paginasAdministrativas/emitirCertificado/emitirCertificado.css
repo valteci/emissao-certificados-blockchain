@@ -50,4 +50,33 @@
         width: 100%;
       }
 }
+
+/* Estilos CSS para a tela de carregamento */
+.loader {
+  border: 6px solid rgba(0, 0, 0, 0.5);
+  border-left: 6px solid #333;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -30px;
+  margin-left: -30px;
+  z-index: 9999;
+  display: none; /* Inicialmente, a div estará oculta */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.informacoes-blockchain {
+  border: 1px solid black;
+  border-radius: 10px;
+  display: none;
+
+}
   
