@@ -6,8 +6,6 @@ import {
 } from 'class-validator';
 
 export class CertificadoDtoEmitir {
-    @IsString()
-    endereco_eth: string;
 
     @IsNotEmpty()
     @IsString()
