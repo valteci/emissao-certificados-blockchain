@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\junio\\OneDrive\\Área de Trabalho\\tcc\\codigo\\emissao-certificados-blockchain\\back-end\\contracts\\Certificado.sol": {
+      "lastModificationDate": 1702143399472,
+      "contentHash": "e35a611ab742fa6cbdc9749a94d441e5",
+      "sourceName": "contracts/Certificado.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.3"
+      ],
+      "artifacts": [
+        "Certificado"
+      ]
+    }
+  }
+}
