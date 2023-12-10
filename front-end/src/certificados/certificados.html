@@ -18,7 +18,7 @@
 
     <body>
 
-      <div class="wrapper">
+      <div class="wrapper" id="tela">
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
             <div class="container-fluid">
@@ -79,6 +79,24 @@
           </form>
         </div>
 
+        <div class="container alert alert-danger mt-5" role="alert" data-bs-theme="dark" id="invalido">
+          <h2 class="text-break text-wrap">
+            ⚠ ESTE CERTIFICADO N&Atilde;O FOI EMITIDO PELA NOSSA INSTIUI&Ccedil;&Atilde;O
+          </h2>
+        </div>
+
+        <div class="container alert alert-success mt-5 p-3" role="alert" data-bs-theme="dark" id="valido">
+          <h2 class="text-break text-wrap">
+            ✅ ESTE CERTIFICADO FOI EMITIDO PELA NOSSA INSTIUI&Ccedil;&Atilde;O
+          </h2>
+          
+          <h4 class="mt-4">
+            Veja Os Dados Do Contrato Na
+            <a id="link" href="#" target="_blank">Blockchain</a> 
+          </h4>
+
+        </div>
+
         <!-- footer -->
         <div class="footer bg-light py-3">
           <div class="container">
@@ -99,15 +117,17 @@
           </div>
         </div>
 
+        <div class="loader" id="loader"></div>
+        <div class="overlay" id="overlay"></div>
+
         <script 
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"
         >
-        </script>
+        </script>                
 
         <script src="./certificados.js"></script>
-
       </div>
 
     </body>
