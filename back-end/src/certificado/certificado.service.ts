@@ -212,14 +212,57 @@ export class CertificadoService {
     async emitirCertificadoInstituicao(dto: CertificadoDtoEmitir, endereco_eth: string) {
         
         
-        await this.prisma.certificado.create({
+        const certificado = await this.prisma.certificado.create({
             data: {
                 endereco_eth: endereco_eth,
                 dados: dto.dados,
                 studentMatricula: dto.matriculaAluno,
                 idCurso: dto.idCurso
+            },
+            include: {
+              student: true,
+              curso: true
             }
         })
+
+        const doc = new PDFDocument();
+        const largura = doc.page.width;
+        const fileName = `./certificadosPdf/${certificado.id}.pdf`;
+        doc.image('./img/logo.png', (largura - 200) / 2, 50, {
+          fit: [200, 200],
+          valign: 'top',          
+        });
+        doc.fontSize(32).text(
+          `Certificamos que o estudante ${certificado.student.nome} concluiu o curso de ${certificado.curso.nome} com uma carga-horária de ${certificado.curso.cargaHoraria} horas`,
+          100,
+          300
+        );
+
+        /* doc.fontSize(16).text(
+          `Veja o certificado na blockchain: https://sepolia.etherscan.io/address/${certificado.endereco_eth}#readContract`,
+          100,
+          600
+        ) */
+
+        doc.fontSize(16).text('Veja o certificado na blockchain:', 100, 600, {
+          continued: true,
+        });
+        
+        doc.fontSize(12).fillColor('blue').text('https://sepolia.etherscan.io/address/', {
+          link: `https://sepolia.etherscan.io/address/${certificado.endereco_eth}#readContract`, // Não clicável, apenas texto
+          underline: true, // Sublinhado para simular link
+        });
+        
+        doc.fontSize(12).fillColor('blue').text(`${certificado.endereco_eth}#readContract`, {
+          link: `https://sepolia.etherscan.io/address/${certificado.endereco_eth}#readContract`, // Não clicável, apenas texto
+          underline: true, // Sublinhado para simular link
+        });
+        
+
+        doc.pipe(fs.createWriteStream(fileName));
+        doc.end();
+
+
     }
 
     async gerarPDF(user: any, @Res() res, id: number) {
@@ -236,29 +279,10 @@ export class CertificadoService {
         const certificado = await this.prisma.certificado.findUnique({
           where: {
             id: id
-          },
-          include: {
-            student: true,
-            curso: true
-          },
-          
-        })
+          }
+        })                
 
-        const endereco_eth = certificado.endereco_eth;
-        const nomeAluno = certificado.student.nome;
-        const nomeCurso = certificado.curso.nome;
-        const cargaHoraria = certificado.curso.cargaHoraria;
-
-        /* const doc = new PDFDocument();
-        const fileName = 'doc.pdf';
-        doc.fontSize(14).text('Texto de exemplo para o PDF.', 100, 100);
-
-        doc.pipe(fs.createWriteStream(fileName));
-        doc.end();
-
-        return fileName; */
-
-        const pdfPath = 'doc.pdf'; // Caminho do PDF no servidor
+        const pdfPath = `./certificadosPdf/${certificado.id}.pdf`; // Caminho do PDF no servidor
         const pdf = fs.createReadStream(pdfPath);
 
         res.set({
@@ -269,7 +293,6 @@ export class CertificadoService {
         pdf.pipe(res); // Envie o PDF como resposta
     
       }
-
 }
 
 
