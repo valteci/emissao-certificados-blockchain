@@ -119,19 +119,40 @@ export class CertificadoService {
     
 
     async emitirCertificadoBlockchain(dto: CertificadoDtoEmitir) {
-        const dados = dto.dados;
       
         const aluno = await this.prisma.student.findUnique({
           where: {
             matricula: dto.matriculaAluno
           }
         });
+
+        if (!aluno)
+          throw new ForbiddenException(
+            'Aluno Não Cadastrado'
+          );
+        
+
+        const curso = await this.prisma.curso.findUnique({
+          where: {
+            id: dto.idCurso
+          }
+        })
+
+        if (!curso)
+          throw new ForbiddenException(
+            'Curso Não Cadastrado'
+          );
+
+        const cpfFormatado = '*** - ' + aluno.cpf.slice(3, 6) + ' - ' + aluno.cpf.slice(6, 9) + ' - **';
       
         const codigo = `
           async function main() {
             const certificadoFactory = await ethers.getContractFactory("Certificado");                            
             const certificado = await certificadoFactory.deploy(
-              "${dados}",
+              "${aluno.nome}",
+              "${cpfFormatado}",
+              "${curso.nome}",
+              "${curso.descricao}",
               "${aluno.endereco_eth}"
             );
             console.log(certificado.address);

@@ -2,8 +2,11 @@
           async function main() {
             const certificadoFactory = await ethers.getContractFactory("Certificado");                            
             const certificado = await certificadoFactory.deploy(
-              "dsafasdfasdf",
-              "0x08965d2dfefc5edaddf876805475027b72bf0200"
+              "junior",
+              "*** - 666 - 555 - **",
+              "Inteligência Artificial",
+              "Aprenda as principais técnicas de análise de dados",
+              "0x5717fe3edc0b2955f3d2fe0ac8cad149107dbdaa"
             );
             console.log(certificado.address);
           }         

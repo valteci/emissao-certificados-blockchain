@@ -35,11 +35,15 @@ export class CertificadoController {
     @Post('/emitir/blockchain=:valor')
     test(@Req() req: Request, @Param('valor', ParseBoolPipe) emitirEmBlockchain: boolean) {
 
+        let resposta = {};
+
+        if (emitirEmBlockchain)
+            resposta = this.service.emitirCertificadoBlockchain(req.body);
+
         this.service.verificarAutorizacao(req.user);
         this.service.emitirCertificadoInstituicao(req.body);
 
-        if (emitirEmBlockchain)
-            return this.service.emitirCertificadoBlockchain(req.body);
+        return resposta;
     }
 
     @Get('test')
