@@ -190,22 +190,12 @@ export class CertificadoService {
       }
 
 
-    async emitirCertificadoInstituicao(dto: CertificadoDtoEmitir) {
-
+    async emitirCertificadoInstituicao(dto: CertificadoDtoEmitir, endereco_eth: string) {
         
-
-        const endereco_eth = await this.prisma.student.findUnique({
-            where: {
-                matricula: dto.matriculaAluno
-            },
-            select: {
-                endereco_eth: true
-            }
-        });
         
         await this.prisma.certificado.create({
             data: {
-                endereco_eth: endereco_eth.endereco_eth,
+                endereco_eth: endereco_eth,
                 dados: dto.dados,
                 studentMatricula: dto.matriculaAluno,
                 idCurso: dto.idCurso

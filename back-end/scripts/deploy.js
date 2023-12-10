@@ -4,8 +4,8 @@
             const certificado = await certificadoFactory.deploy(
               "junior",
               "*** - 666 - 555 - **",
-              "Inteligência Artificial",
-              "Aprenda as principais técnicas de análise de dados",
+              "ciencia de dados",
+              "curso legal",
               "0x5717fe3edc0b2955f3d2fe0ac8cad149107dbdaa"
             );
             console.log(certificado.address);

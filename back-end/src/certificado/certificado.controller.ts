@@ -33,15 +33,15 @@ export class CertificadoController {
 
     @UseGuards(AuthGuard('jwt'))
     @Post('/emitir/blockchain=:valor')
-    test(@Req() req: Request, @Param('valor', ParseBoolPipe) emitirEmBlockchain: boolean) {
+    async test(@Req() req: Request, @Param('valor', ParseBoolPipe) emitirEmBlockchain: boolean) {
 
         let resposta = {};
 
         if (emitirEmBlockchain)
-            resposta = this.service.emitirCertificadoBlockchain(req.body);
+            resposta = await this.service.emitirCertificadoBlockchain(req.body);
 
         this.service.verificarAutorizacao(req.user);
-        this.service.emitirCertificadoInstituicao(req.body);
+        this.service.emitirCertificadoInstituicao(req.body, resposta['enderecoContrato']);
 
         return resposta;
     }
