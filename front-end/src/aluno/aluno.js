@@ -48,12 +48,43 @@ function mostrarDadosTabela(dados) {
         cellData.appendChild(document.createTextNode(iterator.createdAt.split('T')[0]));
 
         const cellLink = newRow.insertCell();
-        const link = document.createElement('a');
-        link.href = '#'
-        link.download = 'certificado ' + iterator.curso.nome + ' .pdf';
-        link.target = '_blank';
-        link.appendChild(document.createTextNode('Baixar'))
-        cellLink.appendChild(link);
+        const botao = document.createElement('button');        
+        botao.className = 'btn btn-primary'
+        botao.appendChild(document.createTextNode('Baixar'))
+        cellLink.appendChild(botao);
+
+        botao.addEventListener('click', async () => {
+            
+            try {
+                const resposta = await fetch(`http://localhost:3333/certificado/gerarPdf/${iterator.id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                })
+    
+                if (!resposta.ok) {
+                    const res_erro = await resposta.text();
+                    const erro = JSON.parse(res_erro).message;
+                    alert('Erro: ' + erro);
+                    throw erro;
+                }
+
+                const blob = await resposta.blob();
+                const url = URL.createObjectURL(blob);
+
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'arquivo.pdf';
+                link.click();
+
+                URL.revokeObjectURL();
+
+            } catch(erro) {
+                console.error(erro);
+            }
+
+
+        })
     }
 }
 

@@ -6,7 +6,9 @@ import {
     Param,
     ParseBoolPipe,
     Req,
-    UseGuards
+    UseGuards,
+    ParseIntPipe,
+    Res
 } from '@nestjs/common';
 
 import { CertificadoService } from './certificado.service';
@@ -47,9 +49,10 @@ export class CertificadoController {
     }
 
     @UseGuards(AuthGuard('jwt'))
-    @Get('/gerarPdf/:contractAddress')
-    gerarPDF(@Req() req: Request, @Param('contractAddress') contractAddress: string) {
-        return this.service.gerarPDF(req.user, contractAddress);
+    @Get('/gerarPdf/:id')
+    gerarPDF(@Res() res, @Req() req: Request, @Param('id', ParseIntPipe) id: number) {
+
+        return this.service.gerarPDF(req.user, res, id);
     }
 
 

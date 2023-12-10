@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ForbiddenException, Injectable, Res, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Network, Alchemy } from 'alchemy-sdk';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -8,6 +8,7 @@ import * as fs from 'fs';
 /* import { exec } from 'child_process'; */
 import { promisify } from 'util';
 import {exec as execCallback} from 'child_process';
+import * as PDFDocument from 'pdfkit';
 
 
 const exec = promisify(execCallback);
@@ -221,7 +222,7 @@ export class CertificadoService {
         })
     }
 
-    async gerarPDF(user: any, contractAddress: string) {
+    async gerarPDF(user: any, @Res() res, id: number) {
     
         const dadosUsuario = await this.prisma.student.findUnique({
           where: {
@@ -232,7 +233,40 @@ export class CertificadoService {
         if (!dadosUsuario)
           throw new UnauthorizedException('Acesso não autorizado');
 
-        
+        const certificado = await this.prisma.certificado.findUnique({
+          where: {
+            id: id
+          },
+          include: {
+            student: true,
+            curso: true
+          },
+          
+        })
+
+        const endereco_eth = certificado.endereco_eth;
+        const nomeAluno = certificado.student.nome;
+        const nomeCurso = certificado.curso.nome;
+        const cargaHoraria = certificado.curso.cargaHoraria;
+
+        /* const doc = new PDFDocument();
+        const fileName = 'doc.pdf';
+        doc.fontSize(14).text('Texto de exemplo para o PDF.', 100, 100);
+
+        doc.pipe(fs.createWriteStream(fileName));
+        doc.end();
+
+        return fileName; */
+
+        const pdfPath = 'doc.pdf'; // Caminho do PDF no servidor
+        const pdf = fs.createReadStream(pdfPath);
+
+        res.set({
+          'Content-Type': 'application/pdf',
+          'Content-Disposition': 'attachment; filename=doc.pdf',
+        });
+
+        pdf.pipe(res); // Envie o PDF como resposta
     
       }
 
