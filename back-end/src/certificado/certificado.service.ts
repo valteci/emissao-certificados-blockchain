@@ -26,11 +26,29 @@ export class CertificadoService {
     }
 
     async verificarCertificado(contractAddress : string) {
-        if (contractAddress.slice(0, 2) === '0x')
-            contractAddress = contractAddress.slice(2);
 
-        if (contractAddress.length !== 40)
-            throw new Error('Endereço Inválido!');        
+      try {
+        const settings = {
+          apiKey: this.config.get('SEPOLIA_API_KEY'),
+          network: Network.ETH_SEPOLIA
+        }
+
+        const alchemy = new Alchemy(settings);
+
+        if (!(await alchemy.core.isContractAddress(contractAddress)))
+          throw new ForbiddenException(
+            'Endereço Do Contrato Não É Válido'
+          );
+
+        const enderecoInstituicao = this.config.get('PUBLIC_KEY');
+        const resposta = await alchemy.core.findContractDeployer(contractAddress);
+        const endercoDeployer = resposta.deployerAddress;
+        
+        return { isValid: endercoDeployer.toLowerCase() === enderecoInstituicao.toLowerCase() };
+
+      } catch(erro) {
+        throw new ForbiddenException('Erro Ao Tentar Validar Contrato!');
+      }
         
     }
 

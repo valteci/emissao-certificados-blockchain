@@ -33,7 +33,7 @@ export class CertificadoController {
 
     @UseGuards(AuthGuard('jwt'))
     @Post('/emitir/blockchain=:valor')
-    async test(@Req() req: Request, @Param('valor', ParseBoolPipe) emitirEmBlockchain: boolean) {
+    async emitirCertificado(@Req() req: Request, @Param('valor', ParseBoolPipe) emitirEmBlockchain: boolean) {
 
         let resposta = {};
 
