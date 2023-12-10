@@ -3,9 +3,68 @@ function opcaoDadosAluno() {
     document.getElementById('certificadosAluno').style.display = 'none';
 }
 
-function opcaoCertificadosAluno() {
+async function opcaoCertificadosAluno() {
     document.getElementById('alterarDadosAluno').style.display = 'none';
     document.getElementById('certificadosAluno').style.display = 'block';
+
+    try {
+        const resposta = await fetch('http://localhost:3333/students/certificados', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        });
+
+        if (!resposta.ok) {
+            const erro = await resposta.text();
+            alert('Erro: ' + JSON.parse(erro).message);
+            throw erro;
+        }
+
+        const certificados = await resposta.json();
+
+        mostrarDadosTabela(certificados.certificados);
+
+        
+    } catch(erro) {
+        console.erro(erro);
+    }
+    
+}
+
+function mostrarDadosTabela(dados) {
+
+    const tabela = document.getElementById('table');
+
+    limparTabela(tabela);
+
+    for (const iterator of dados) {
+        
+        const newRow = tabela.insertRow();
+
+        const cellNomeCurso = newRow.insertCell();
+        cellNomeCurso.appendChild(document.createTextNode(iterator.curso.nome));
+
+        const cellData = newRow.insertCell();
+        cellData.appendChild(document.createTextNode(iterator.createdAt.split('T')[0]));
+
+        const cellLink = newRow.insertCell();
+        const link = document.createElement('a');
+        link.href = '#'
+        link.download = 'certificado ' + iterator.curso.nome + ' .pdf';
+        link.target = '_blank';
+        link.appendChild(document.createTextNode('Baixar'))
+        cellLink.appendChild(link);
+    }
+}
+
+function limparTabela(tabela) {
+
+    tabela.innerHTML = `<thead>                
+                            <th scope="col">Nome Do Curso</th>
+                            <th scope="col">Data De Emiss&atilde;o</th>
+                            <th scope="col">Baixar</th>
+                        </thead>`
+
 }
 
 function eventoChangeCkbNomeAlterar(event) {
@@ -90,25 +149,6 @@ async function getAluno() {
     } catch(erro) {
         console.error(erro);
     }
-
-    /* fetch('http://localhost:3333/students/me', {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-        }
-    })
-        .then(response => {
-            if (!response)
-                throw new Error(`HTTP error! status: ${response.status}`);
-
-                return response.json();
-        })
-        .then(dadosAluno => {
-            dados = dadosAluno;
-        })
-        .catch(erro => {
-            console.error('Erro ao processar a resposta: ', erro);
-        }) */
 }
 
 async function alterarDados() {

@@ -184,4 +184,36 @@ export class StudentService {
             throw erro;
         }
     }
+
+    async getCertificados(user: any) {        
+            
+        console.log(user);
+        const dadosUsuario = await this.prisma.student.findUnique({
+            where: {
+                email: user.email
+            }
+        })
+
+        if  (!dadosUsuario)
+            throw new UnauthorizedException('Acesso não autorizado');
+        
+
+        const certificados = await this.prisma.student.findUnique({            
+            where: {
+                email: user.email
+            },
+            include: {
+                certificados: {
+                    include: {
+                        curso: true
+                    }
+                }
+            }
+            
+        })
+
+        delete certificados.hashSenha;
+        return certificados;
+            
+    }
 }

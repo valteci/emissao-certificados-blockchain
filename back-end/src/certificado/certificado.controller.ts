@@ -46,9 +46,11 @@ export class CertificadoController {
         return resposta;
     }
 
-    @Get('test')
-    testarAlchemy() {
-        return this.service.testarAlchemy();
+    @UseGuards(AuthGuard('jwt'))
+    @Get('/gerarPdf/:contractAddress')
+    gerarPDF(@Req() req: Request, @Param('contractAddress') contractAddress: string) {
+        return this.service.gerarPDF(req.user, contractAddress);
     }
+
 
 }

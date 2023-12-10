@@ -24,11 +24,22 @@ export class StudentController {
         return this.studentService.updateStudent(user, req.body);
     }
 
+    @Post('ola')
+    ola() {
+        return "ola";
+    }
+
 
     @UseGuards(AuthGuard('jwt'))
     @Get('/') 
     getTodosAlunos(@Req() req: Request) { // pegar todos
         return this.studentService.getTodosAlunos(req.user);
+    }
+
+    @UseGuards(AuthGuard('jwt'))
+    @Get('/certificados')
+    getCertificados(@Req() req: Request) {
+        return this.studentService.getCertificados(req.user);
     }
 
     @UseGuards(AuthGuard('jwt'))
@@ -43,11 +54,11 @@ export class StudentController {
         return this.studentService.deleteAluno(req.user, matricula);
     }
 
+
     @UseGuards(AuthGuard('jwt'))
     @Post('updateInstitucional')
     updateInstitucional(@Req() req: Request) {
         return this.studentService.updateInstitucional(req.user, req.body);
     }
-
 
 }

@@ -221,7 +221,28 @@ export class CertificadoService {
         })
     }
 
+    async gerarPDF(user: any, contractAddress: string) {
+    
+        const dadosUsuario = await this.prisma.student.findUnique({
+          where: {
+              email: user.email
+          }
+        })
+
+        if (!dadosUsuario)
+          throw new UnauthorizedException('Acesso não autorizado');
+
+        
+    
+      }
+
 }
+
+
+
+
+
+
 /* const publicar = `npx hardhat verify --network sepolia ${enderecoContrato} "${dados}" "${aluno.endereco_eth}"`;
 
 
