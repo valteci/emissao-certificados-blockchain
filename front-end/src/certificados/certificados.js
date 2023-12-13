@@ -48,7 +48,7 @@ function showPublicKey() {
     getPublicKey()
         .then(publicKey => {
             document.getElementById('publicKey').textContent = 
-                'Chave Pública da Instituição: ' + publicKey;
+                'Endereço Ethereum Da Instituição: ' + publicKey;
         })
         .catch(err => {
             alert('Não foi possível carregar a chave pública da instituição');
