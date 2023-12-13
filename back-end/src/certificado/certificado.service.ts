@@ -8,7 +8,9 @@ import * as fs from 'fs';
 /* import { exec } from 'child_process'; */
 import { promisify } from 'util';
 import {exec as execCallback} from 'child_process';
+
 import * as PDFDocument from 'pdfkit';
+const QRCode = require('qrcode');
 
 
 const exec = promisify(execCallback);
@@ -225,10 +227,18 @@ export class CertificadoService {
             }
         })
 
+        await QRCode.toFile(
+          `./certificadosPdf/QR${certificado.id}.png`,
+          `https://sepolia.etherscan.io/address/${certificado.endereco_eth}#readContract`,
+          {
+            errorCorrectionLevel: 'H'
+          }
+        );
+
         const doc = new PDFDocument();
         const largura = doc.page.width;
         const fileName = `./certificadosPdf/${certificado.id}.pdf`;
-        doc.image('./img/logo.png', (largura - 200) / 2, 50, {
+        doc.image(`./certificadosPdf/QR${certificado.id}.png`, (largura - 200) / 2, 50, {
           fit: [200, 200],
           valign: 'top',          
         });
