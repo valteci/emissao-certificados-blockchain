@@ -238,10 +238,13 @@ export class CertificadoService {
         const doc = new PDFDocument();
         const largura = doc.page.width;
         const fileName = `./certificadosPdf/${certificado.id}.pdf`;
+
+        doc.fontSize(14).text('Escaneie o QRCode para ver o certificado na blockchain', 150, 20);
+
         doc.image(`./certificadosPdf/QR${certificado.id}.png`, (largura - 200) / 2, 50, {
           fit: [200, 200],
           valign: 'top',          
-        });
+        });        
         doc.fontSize(32).text(
           `Certificamos que o estudante ${certificado.student.nome} concluiu o curso de ${certificado.curso.nome} com uma carga-horária de ${certificado.curso.cargaHoraria} horas`,
           100,
@@ -254,18 +257,11 @@ export class CertificadoService {
           600
         ) */
 
-        doc.fontSize(16).text('Veja o certificado na blockchain:', 100, 600, {
+        doc.fontSize(16).text('Endereço na blockchain Ethereum:', 100, 600, {
           continued: true,
         });
         
-        doc.fontSize(12).fillColor('blue').text('https://sepolia.etherscan.io/address/', {
-          link: `https://sepolia.etherscan.io/address/${certificado.endereco_eth}#readContract`, // Não clicável, apenas texto
-          underline: true, // Sublinhado para simular link
-        });
-        
-        doc.fontSize(12).fillColor('blue').text(`${certificado.endereco_eth}#readContract`, {
-          link: `https://sepolia.etherscan.io/address/${certificado.endereco_eth}#readContract`, // Não clicável, apenas texto
-          underline: true, // Sublinhado para simular link
+        doc.fontSize(14).text(`${certificado.endereco_eth}`, {
         });
         
 
